@@ -1,0 +1,78 @@
+import  os
+import pandas as pd
+
+report: "report/workflow.rst"
+
+#set locale
+#export LC_ALL=en_US.UTF-8
+
+# Debugging statements
+print("Current working directory:", os.getcwd())
+print("Contents of the directory:", os.listdir())
+
+# path to Snakemakefile (used to identify the scripts folder in the smk files)
+my_basedir = workflow.current_basedir
+print(my_basedir)
+
+# ======================================================
+# Config files
+# ======================================================
+#configfile: "config/config.yaml"
+
+samples_table = pd.read_table(config["samples_file"], sep=',', dtype=str).set_index("sample", drop=False)
+
+samples = samples_table['sample'].drop_duplicates().tolist()
+markers = config["markers"]
+project = config["project"]
+barcodes = samples_table["barcode"].reset_index(drop=True).values
+min_itsx_length = config["itsx"]["min_its_length"]
+
+wildcard_constraints:
+    sample = '[A-Za-z0-9-]+',
+    project = '[A-Za-z0-9-_]+'
+
+
+
+# ======================================================
+# rule all to determine desired outputs
+# ======================================================
+rule all:
+    input:
+        expand("results/{project}/quality_checks/1_unfiltered/nanostat/merged_stats.txt", project=config["project"]),
+        expand("results/{project}/quality_checks/1_unfiltered/pistis/{sample}.pdf", sample=samples_table.index, project=config["project"]),
+        expand("results/{project}/reads/2_qual_filtered_reads/3_fasta/{sample}.fasta", sample=samples_table.index, project=config["project"]),
+        expand("results/{project}/quality_checks/2_filtered/nanostat/merged_stats.txt", project=config["project"]),
+        expand("results/{project}/quality_checks/2_filtered/pistis/{sample}.pdf", sample=samples_table.index, project=config["project"]),
+        
+        expand("results/{project}/itsx/{sample}/{sample}_{marker}_final.fasta", sample=samples_table.index, marker=config["markers"], project=config["project"]),
+        expand("results/{project}/itsx/avg_seq_length.txt", project=config["project"]),
+        expand("results/{project}/itsx/avg_seq_nr.txt", project=config["project"]),
+        
+        expand("results/{project}/classification/{classifier}/{sample}/{sample}_{marker}_{classifier}.otumat",
+              sample=samples_table.index, marker=config["markers"], classifier=config["classifiers"], project=config["project"]),
+        
+        expand("results/{project}/classification/{classifier}/{marker}.merged.outmat.tsv", marker=config["markers"], classifier=config["classifiers"], project=config["project"]),
+        expand("results/{project}/plotting/{marker}/{marker}_Barplot_{type}_{rank}_rank.pdf", rank=config["tax_ranks"], 
+            project=config["project"], marker=config["markers"], type=["counts", "ra"]),
+        expand("results/{project}/benchmarks/merged.pdf", project=config["project"])
+        
+
+
+# ======================================================
+# Report
+# ======================================================
+...
+
+
+
+#======================================================
+# Include
+#======================================================
+include: "rules/qual_control_raw.smk"
+include: "rules/qual_filtering.smk"
+include: "rules/qual_control_filtered.smk"
+include: "rules/run_itsx.smk"
+include: "rules/common.smk"
+include: "rules/minimap2.smk"
+include: "rules/kraken2.smk"
+include: "rules/otu_analysis.smk"

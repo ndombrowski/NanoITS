@@ -1,0 +1,41 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - "*.qmd"
+    - "!Readme.md"
+    - "!source/documentation.qmd"
+
+website:
+  title: "NanoITS"
+  page-navigation: true
+  sidebar: 
+    style: "docked"
+    search: true
+    contents:
+      - index.qmd
+      - "source/prerequisites.qmd"
+      - "source/run_nanoITS.qmd"
+      - "source/output.qmd"
+      - "source/references.qmd"
+  page-footer:
+    left: |
+      Copyright 2023, Nina Dombrowski
+
+format:
+  html:
+    theme:
+      light: sandstone
+      dark: darkly
+    toc: true
+    code-copy: true
+    code-overflow: wrap
+
+
+execute:
+  eval: false
+
+
+engine: knitr
+
+

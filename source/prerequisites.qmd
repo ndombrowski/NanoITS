@@ -1,0 +1,40 @@
+---
+title: "Getting started"
+
+execute:
+  eval: false
+
+engine: knitr
+---
+
+
+
+## Prerequisites
+
+To run the workflow you need to have mamba (conda also works) and snakemake installed. 
+
+All other software required by NanoITs will be installed by snakemake for you in a conda environment.
+
+
+### Install conda
+
+ Information about installing  mamba [here](https://mamba.readthedocs.io/en/latest/mamba-installation.html) and for conda can be found [here](https://docs.conda.io/projects/conda/en/latest/user-guide/install/).
+
+### Install snakemake
+
+To install snakemake, check out the installation instructions found [here](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html). The workflow was so far tested with snakemake version 7.32.4.
+
+### Install NanoITS
+
+NanoITS can be installed via git:
+
+```{bash}
+git clone xx.git
+```
+
+If you do not have git installed, you can also download the folder from github. Therefore:
+
+1. Go to xx
+2. Click the green code button
+3. Download zip
+4. Extract zip

@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>NanoITS documentation - Getting started</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">NanoITS documentation</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Home</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../source/manual.html">Getting started</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Description</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../source/manual.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Getting started</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites">Prerequisites</a></li>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#run-nanoits" id="toc-run-nanoits" class="nav-link" data-scroll-target="#run-nanoits">Run NanoITS</a>
+  <ul class="collapse">
+  <li><a href="#general-setup" id="toc-general-setup" class="nav-link" data-scroll-target="#general-setup">General setup</a></li>
+  <li><a href="#test-run" id="toc-test-run" class="nav-link" data-scroll-target="#test-run">Test-run</a></li>
+  <li><a href="#development-stage" id="toc-development-stage" class="nav-link" data-scroll-target="#development-stage">Development stage</a></li>
+  </ul></li>
+  <li><a href="#other-notes" id="toc-other-notes" class="nav-link" data-scroll-target="#other-notes">Other notes</a>
+  <ul class="collapse">
+  <li><a href="#comment-on-fickle-script" id="toc-comment-on-fickle-script" class="nav-link" data-scroll-target="#comment-on-fickle-script">Comment on fickle script:</a></li>
+  <li><a href="#notes-on-how-the-taxonomy-files-were-generated" id="toc-notes-on-how-the-taxonomy-files-were-generated" class="nav-link" data-scroll-target="#notes-on-how-the-taxonomy-files-were-generated">Notes on how the taxonomy files were generated</a></li>
+  <li><a href="#unite-its" id="toc-unite-its" class="nav-link" data-scroll-target="#unite-its">Unite (ITS)</a></li>
+  <li><a href="#silva-ssu" id="toc-silva-ssu" class="nav-link" data-scroll-target="#silva-ssu">Silva (SSU)</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Getting started</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+<p>To run the workflow conda/mamba and snakemake are required.</p>
+<ul>
+<li>To install snakemake, check out the installation instructions found <a href="https://snakemake.readthedocs.io/en/stable/getting_started/installation.html">here</a>. The workflow was so far tested with snakemake version 7.32.4.</li>
+<li>Information about installing conda can be found <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/">here</a> and for mamba <a href="">here</a>[https://mamba.readthedocs.io/en/latest/mamba-installation.html].</li>
+</ul>
+</section>
+<section id="installation" class="level2">
+<h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<p>Fungomics can be installed via</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone xx.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="run-nanoits" class="level2">
+<h2 class="anchored" data-anchor-id="run-nanoits">Run NanoITS</h2>
+<section id="general-setup" class="level3">
+<h3 class="anchored" data-anchor-id="general-setup">General setup</h3>
+<p>To run NanoITS you need to provide some information about the samples you want to analyse via the config.yaml file. Start with moving the <code>config/config.yaml</code> file to the folder with the fastq files you want to analyse and open the file with <code>nano</code>.</p>
+<p>There are several things you can modify:</p>
+<ol type="1">
+<li>Provide the project name in <code>project: "run_v1"</code>. Your results will be generated in the folder you start the snakemake workflow in and the results will be generated in <code>results/&lt;project_name&gt;</code>. Your project name can contain letters, numbers <code>_</code> and <code>-</code>. Please do not use other symbols, such as spaces.</li>
+<li>Provide a mapping file that describes the samples you want to analyse, i.e.&nbsp;<code>samples_file: "input/mapping.csv"</code>. Here:
+<ol type="1">
+<li>sample: The names of your sample. This id will be used to label all files created in subsequent steps. In your sample names you can loose letters, numbers and <code>-</code>. Please do not use other symbols spaces, dots or underscores in your sample names.</li>
+<li>barcode: The barcode ID. Can be empty as it is not actively used in the workflow</li>
+<li>path: Path to the fastq.gz files. The workflow accepts one file per barcode, so if you have more than one file merge this first using cat. Here, you can use a relative path (i.e.&nbsp;relative to the working directory you start the snakemake workflow in) or absolute.</li>
+</ol></li>
+<li>Decide what classifiers you want to use in <code>classifiers: ["minimap2", "kraken2"]</code>. Currently, two classifiers are implemented: (a) the alignment-based classifier minimap2 and (b) the kmer-based classifier kraken2. You can use both or either of the two classifiers.</li>
+<li>Decide what markers you want to analyse in <code>markers: ["SSU", "ITS1"]</code>. The workflow was developed for primers targetting both the SSU and ITS1 but the workflow will also run for either option selected and we plan to in the future extend the workflow to also accept the LSU rRNA gene.</li>
+<li>Change tool specific parameters: If desires, there are several parameters that can be changed by the users, such as the numbers of threads to use, the settings for the read filtering or the classification.</li>
+</ol>
+<p>Example mapping file:</p>
+<pre><code>sample,barcode,path
+bc01,barcode01,/path/barcode01.fastq.gz
+bc02,barcode02,/path/barcode02.fastq.gz
+...</code></pre>
+<p>Several steps of this workflow are quite heavy, so we recommend running this worklow on an HPC. If you want, you can of course try running it on a desktop computer.</p>
+</section>
+<section id="test-run" class="level3">
+<h3 class="anchored" data-anchor-id="test-run">Test-run</h3>
+<p>To test whether the workflow will run successfully:</p>
+<ol type="1">
+<li>Provide the path to where you installed NanoITS afer –s</li>
+<li>Provide the path to the config file after –configfile</li>
+<li>Provide the path to where you want snakemake to install all program dependencies. We recommend to install these into the folder in which you downloaded NanoITS but you can change this if desired</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#activate conda environment with your snakemake installation, i.e. </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> activate snakemake_7.32.4</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#test if everything runs as extended </span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--use-conda</span> <span class="at">--cores</span> 1 <span class="at">-s</span> <span class="op">&lt;</span>path_to_NanoITS_install<span class="op">&gt;</span>/workflow/Snakefile <span class="at">--configfile</span> config/config.yaml <span class="at">--conda-prefix</span> <span class="op">&lt;</span>path_to_NanoITS_install<span class="op">&gt;</span>/workflow/.snakemake/conda  <span class="at">--rerun-incomplete</span> <span class="at">--nolock</span> <span class="at">-np</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If the test-run was successful you can run snakemake interactively with:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--use-conda</span> <span class="at">--cores</span> 1 <span class="at">-s</span> <span class="op">&lt;</span>path_to_NanoITS_install<span class="op">&gt;</span>/workflow/Snakefile <span class="at">--configfile</span> config/config.yaml <span class="at">--conda-prefix</span> <span class="op">&lt;</span>path_to_NanoITS_install<span class="op">&gt;</span>/workflow/.snakemake/conda  <span class="at">--rerun-incomplete</span> <span class="at">--nolock</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Or via a slurm HPC, such as UvA´s crunchomics server by doing the following edits in jobscript.sh:</p>
+<ol type="1">
+<li>Exchange the line that utilizes snakemake with the line of code that you used for the testrun to ensure that all paths are set correctly.</li>
+<li>Adjust the number of CPUs as needed</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> jobscript.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="development-stage" class="level3">
+<h3 class="anchored" data-anchor-id="development-stage">Development stage</h3>
+<section id="setup-snakemake" class="level4">
+<h4 class="anchored" data-anchor-id="setup-snakemake">Setup snakemake</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> snakemake_7.32.4 <span class="at">-c</span> conda-forge <span class="at">-c</span> bioconda snakemake=7.32.4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">LC_ALL</span><span class="op">=</span>en_US.UTF-8</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#set working directory</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="va">wdir</span><span class="op">=</span><span class="st">"/home/ndombro/personal/snakemake_workflows/NanoITS"</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$wdir</span> </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> activate snakemake_7.32.4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="organize-folder-structure" class="level4">
+<h4 class="anchored" data-anchor-id="organize-folder-structure">Organize folder structure</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#organize folders</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mkdir -p workflow/scripts</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># mkdir workflow/envs</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># mkdir workflow/rules</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># mkdir workflow/report</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> docs</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> config</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> input/raw</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> input/combined</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">'barcode02\nbarcode05'</span> <span class="op">&gt;</span> input/samples.txt</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"test"</span> <span class="op">&gt;</span>  workflow/report/workflow.rst</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> /home/ndombro/personal/snakemake_workflows/fungomics/config/config.yaml config</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> ~/personal/snakemake_workflows/fungomics/jobscript.sh .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="get-yaml-for-existing-workflows" class="level4">
+<h4 class="anchored" data-anchor-id="get-yaml-for-existing-workflows">Get yaml for existing workflows</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate nanopore</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env export <span class="op">&gt;</span> workflow/envs/nanopore.yaml</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate r_for_amplicon</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env export <span class="op">&gt;</span> workflow/envs/r_for_amplicon.yaml </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="prepare-db-folder" class="level4">
+<h4 class="anchored" data-anchor-id="prepare-db-folder">Prepare db folder</h4>
+<p>We will prepare a db folder that can be downloaded from zenodo. The reason for doing that is because unite can not be downloaded via wget since one needs to fill out a form. Therefore, we will the already prepared databases via zenodo.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/ndombro/personal/for_zenodo/fungomics/db</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> unite/general</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> silva/general</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#db used by minimap</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> ~/personal/projects/fungomics/mangrove/db/unite/general_release/unite-ref-seqs.fna unite/general/</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> ~/personal/projects/fungomics/mangrove/db/unite/general_release/unite-ref-taxonomy.txt unite/general/</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> ~/personal/projects/fungomics/mangrove/db/silva/general/silva-ref-taxonomy.txt silva/general/</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> ~/personal/projects/fungomics/mangrove/db/silva/general/silva-ref.fasta silva/general/</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co">#db used by kraken</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> ~/personal/projects/fungomics/mangrove/db/unite/general_release/db_kraken/<span class="pp">*</span> unite/</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> ~/personal/projects/fungomics/mangrove/db/silva/kraken silva/</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co">#clean up symbolic links</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> silva/kraken</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-r</span> taxonomy</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> /home/ndombro/personal/projects/fungomics/mangrove/db/ncbi/taxonomy/ .</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../../..</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="co">#compress</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-zcvf</span> db.tar.gz db</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="prepare-test-data" class="level4">
+<h4 class="anchored" data-anchor-id="prepare-test-data">Prepare test data</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> /zfs/omics/personal/ndombro/projects/fungomics/mangrove/data/fastq_pass/barcode02/ <span class="va">${PWD}</span>/input/raw</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> /zfs/omics/personal/ndombro/projects/fungomics/mangrove/data/fastq_pass/barcode05/ <span class="va">${PWD}</span>/input/raw</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="kw">`</span><span class="fu">cat</span> input/samples.txt<span class="kw">`;</span> <span class="cf">do</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span> input/raw/<span class="va">${i}</span>/<span class="pp">*</span>fastq.gz <span class="op">&gt;</span> input/combined/<span class="va">${i}</span>.fastq.gz</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># cp input/raw/barcode02/aps797_pass_barcode02_72052f83_778f88e7_2.fastq.gz input/combined/barcode02.fastq.gz</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># cp input/raw/barcode05/aps797_pass_barcode05_72052f83_778f88e7_2.fastq.gz input/combined/barcode05.fastq.gz</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">'sample,barcode,path\nbc02,barcode02,input/combined/barcode02.fastq.gz\nbc05,barcode05,input/combined/barcode05.fastq.gz'</span> <span class="op">&gt;</span> input/mapping.txt</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$(</span><span class="fu">zcat</span> input/combined/barcode02.fastq.gz <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span><span class="va">)</span>/4<span class="kw">|</span><span class="fu">bc</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$(</span><span class="fu">zcat</span> input/combined/barcode05.fastq.gz <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span><span class="va">)</span>/4<span class="kw">|</span><span class="fu">bc</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$(</span><span class="fu">zcat</span> input/raw/barcode02/<span class="pp">*</span>fastq.gz <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span><span class="va">)</span>/4<span class="kw">|</span><span class="fu">bc</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dry-run</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--use-conda</span> <span class="at">--cores</span> 1 <span class="at">--configfile</span> config/config.yaml <span class="at">--conda-prefix</span> workflow/.snakemake/conda  <span class="at">--rerun-incomplete</span> <span class="at">--nolock</span> <span class="at">-np</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#full run</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> jobscript.sh</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#generate report</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--report</span> report.html <span class="at">--configfile</span> config/config.yaml </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> {my_basedir}/scripts/otu_analysis.R results/{project}/classification/<span class="pp">*</span>/<span class="va">${</span><span class="er">{i</span><span class="va">}</span>}.merged.outmat.tsv <span class="va">${</span><span class="er">{i</span><span class="va">}</span>} results/{project}</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="ex">file_paths</span> <span class="op">&lt;</span>- c<span class="er">(</span><span class="st">"results/test_run/classification/minimap2/SSU.merged.outmat.tsv"</span><span class="ex">,</span> <span class="st">"results/test_run/classification/kraken2/SSU.merged.outmat.tsv"</span><span class="kw">)</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="ex">marker_id</span> <span class="op">&lt;</span>- <span class="st">"SSU"</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="ex">results/test_run/classification/minimap2/SSU.merged.outmat.tsv</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="ex">results/test_run/classification/kraken2/SSU.merged.outmat.tsv</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="other-notes" class="level2">
+<h2 class="anchored" data-anchor-id="other-notes">Other notes</h2>
+<section id="comment-on-fickle-script" class="level3">
+<h3 class="anchored" data-anchor-id="comment-on-fickle-script">Comment on fickle script:</h3>
+<p>If you adjust something in the file path then <code>workflow/scripts/tomat.py</code> needs to be adjusted, esp this part:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pathfile<span class="op">=</span><span class="st">" results/test_run/classification/minimap2/bc02/bc02_ITS1_minimap2.taxlist"</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>parts <span class="op">=</span> pathfile.split(<span class="st">'/'</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="bu">dir</span> <span class="op">=</span> <span class="st">'/'</span>.join(parts[:<span class="dv">4</span>])</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>project <span class="op">=</span> parts[<span class="dv">1</span>]</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>method <span class="op">=</span> parts[<span class="dv">3</span>]</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>sample <span class="op">=</span> parts[<span class="dv">4</span>]</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>marker <span class="op">=</span> parts[<span class="dv">5</span>].split(<span class="st">'_'</span>)[<span class="dv">1</span>]</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>outpath <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span><span class="bu">dir</span><span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>sample<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>sample<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>marker<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>method<span class="sc">}</span><span class="ss">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In <code>workflow/scripts/merge_otu_tables.py</code> adjust:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>barcode <span class="op">=</span> os.path.join(root, <span class="bu">dir</span>).split(os.path.sep)[<span class="dv">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="notes-on-how-the-taxonomy-files-were-generated" class="level3">
+<h3 class="anchored" data-anchor-id="notes-on-how-the-taxonomy-files-were-generated">Notes on how the taxonomy files were generated</h3>
+<p>Currently, the workflow supports two databases:</p>
+<ul>
+<li>Unite for ITS1 marker gene analyses (linked to the Unite taxonomy)</li>
+<li>Silva for 16S/18S rRNA gene analyes (linked to the NCBI taxonomy)</li>
+</ul>
+<p>Below, you find the code to:</p>
+<ol type="1">
+<li>Download the sequences for both databases</li>
+<li>Download a taxonomy mapping file (Silva) or generate a custom mapping file (Unite)</li>
+<li>Parse these two to be suited for use in the Minimap2 and Kraken2 classification step</li>
+</ol>
+</section>
+<section id="unite-its" class="level3">
+<h3 class="anchored" data-anchor-id="unite-its">Unite (ITS)</h3>
+<section id="download-db" class="level4">
+<h4 class="anchored" data-anchor-id="download-db">Download db</h4>
+<p>Unite can not be downloaded via wget since one needs to receive a download link via mail. But the data was downloaded via the web browser on 0210223 from <a href="https://doi.plutof.ut.ee/doi/10.15156/BIO/2938069">this website</a> and <a href="https://doi.plutof.ut.ee/doi/10.15156/BIO/2938081">this website</a> then uploaded to crunchomics into the working directory and this folder <code>db/unite/general_release</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> db/unite/general_release</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> db/unite/general_release</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-zxvf</span> sh_general_release_all_18.07.2023.tgz</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../..</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="parse-db-for-minimap2" class="level4">
+<h4 class="anchored" data-anchor-id="parse-db-for-minimap2">Parse db for minimap2</h4>
+<p>Arguments for <code>shorten_fasta_headers.py</code>:</p>
+<ul>
+<li><code>--header_part INT</code>: The unite file has a longer header with different elements separated by “|”, here we just decide which element after separation we want to keep.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#shorten header </span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/shorten_fasta_headers.py <span class="at">-i</span> db/unite/general_release/sh_general_release_dynamic_all_18.07.2023.fasta <span class="at">-o</span> db/unite/general_release/unite-ref-seqs.fna <span class="at">--header_part</span> 3</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#check if headers are unique</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"&gt;"</span> db/unite/general_release/unite-ref-seqs.fna <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-d</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">#make a taxon mapping file </span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/parse_unite_tax.py <span class="at">-i</span> db/unite/general_release/sh_general_release_dynamic_all_18.07.2023.fasta  <span class="at">-o</span> db/unite/general_release/unite-ref-taxonomy.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="parse-db-for-kraken2" class="level4">
+<h4 class="anchored" data-anchor-id="parse-db-for-kraken2">Parse db for kraken2</h4>
+<p>Notice: To convert the fasta header to a taxonomy mapping file, a perl script that is part of kraken2 was used. This script can be found in the <code>scripts</code> folder but originally comes from <a href="https://github.com/DerrickWood/kraken2/blob/master/scripts/build_rdp_taxonomy.pl#L30">here</a> and was downloaded with <code>wget -P scripts https://raw.githubusercontent.com/DerrickWood/kraken2/master/scripts/build_rdp_taxonomy.pl</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate nanopore</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> db/unite/general_release</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ./db_kraken</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">#convert fasta header into something that can be used by kraken2 for db generation</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">perl</span> <span class="at">-pe</span> <span class="st">'</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="st">  s/&gt;([^\|]+)\|([^\|]+)\|([^\|]+)/&gt;$2 $1; $3/;</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="st">  s/\|re[a-z]s_*[a-z]*\|k__Fungi/\tLineage=Root;rootrank;Fungi;domain/g;</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="st">  s/\|re[a-z]s_*[a-z]*\|k__Viridiplantae/\tLineage=Root;rootrank;Viridiplantae;domain/g;</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="st">  s/\|re[a-z]s_*[a-z]*\|k__Eukaryota_kgd_Incertae_sedis/\tLineage=Root;rootrank;Eukaryota_kgd_Incertae_sedis;domain/g;</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="st">  s/\|re[a-z]s_*[a-z]*\|k__Alveolata/\tLineage=Root;rootrank;Alveolata;domain/g;</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="st">  s/\|re[a-z]s_*[a-z]*\|k__Amoebozoa/\tLineage=Root;rootrank;Amoebozoa;domain/g;</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="st">  s/\|re[a-z]s_*[a-z]*\|k__Apusozoa/\tLineage=Root;rootrank;Apusozoa;domain/g;</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="st">  s/\|re[a-z]s_*[a-z]*\|k__Choanoflagellozoa/\tLineage=Root;rootrank;Choanoflagellozoa;domain/g;</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="st">  s/\|re[a-z]s_*[a-z]*\|k__Cryptista/\tLineage=Root;rootrank;Cryptista;domain/g;</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="st">  s/\|re[a-z]s_*[a-z]*\|k__Euglenozoa/\tLineage=Root;rootrank;Euglenozoa;domain/g;</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="st">  s/\|re[a-z]s_*[a-z]*\|k__Glaucocystoplantae/\tLineage=Root;rootrank;Glaucocystoplantae;domain/g;</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="st">  s/\|re[a-z]s_*[a-z]*\|k__Haptista/\tLineage=Root;rootrank;Haptista;domain/g;</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="st">  s/\|re[a-z]s_*[a-z]*\|k__Heterolobosa/\tLineage=Root;rootrank;Heterolobosa;domain/g;</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="st">  s/\|re[a-z]s_*[a-z]*\|k__Ichthyosporia/\tLineage=Root;rootrank;Ichthyosporia;domain/g;</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="st">  s/\|re[a-z]s_*[a-z]*\|k__Metazoa/\tLineage=Root;rootrank;Metazoa;domain/g;</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="st">  s/\|re[a-z]s_*[a-z]*\|k__Planomonada/\tLineage=Root;rootrank;Planomonada;domain/g;</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="st">  s/\|re[a-z]s_*[a-z]*\|k__Protista/\tLineage=Root;rootrank;Protista;domain/g;</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a><span class="st">  s/\|re[a-z]s_*[a-z]*\|k__Rhizaria/\tLineage=Root;rootrank;Rhizaria;domain/g;</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a><span class="st">  s/\|re[a-z]s_*[a-z]*\|k__Rhodoplantae/\tLineage=Root;rootrank;Rhodoplantae;domain/g;</span></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="st">  s/\|re[a-z]s_*[a-z]*\|k__Stramenopila/\tLineage=Root;rootrank;Stramenopila;domain/g;</span></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="st">  s/\|/ /g;</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="st">  s/;s__*.*//g;</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a><span class="st">  s/p__([a-zA-Z0-9_ -]*)/\1;phylum/g;</span></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="st">  s/c__([a-zA-Z0-9_ -]*)/\1;class/g;</span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a><span class="st">  s/o__([a-zA-Z0-9_ -]*)/\1;order/g;</span></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a><span class="st">  s/f__([a-zA-Z0-9_ -]*)/\1;family/g;</span></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a><span class="st">  s/g__([a-zA-Z0-9_ -]*)/\1;genus/g;</span></span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a><span class="st">  s/;$//g'</span>  sh_general_release_dynamic_all_18.07.2023.fasta <span class="op">&gt;</span> ./db_kraken/kunite.fasta</span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a><span class="co">#generate taxonomy mapping files based on the fasta header</span></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a><span class="fu">perl</span> ../../../scripts/build_rdp_taxonomy.pl ./db_kraken/kunite.fasta</span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a><span class="co">#organize folder structure</span></span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ./db_kraken/library </span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> ./db_kraken/kunite.fasta ./db_kraken/library/unite.fna</span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ./db_kraken/taxonomy</span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> names.dmp nodes.dmp ./db_kraken/taxonomy</span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> seqid2taxid.map ./db_kraken</span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a><span class="co">#buld db</span></span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a><span class="ex">kraken2-build</span> <span class="at">--build</span> <span class="at">--db</span> db_kraken</span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a><span class="co">#convert to taxID_to_string mapping</span></span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> db_kraken</span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a><span class="ex">taxonkit</span> lineage <span class="at">--data-dir</span> ./taxonomy <span class="op">&lt;(</span><span class="fu">awk</span> <span class="st">'{print $2}'</span> seqid2taxid.map <span class="kw">|</span><span class="dt">\</span></span>
+<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span><span class="op">)</span> <span class="kw">|</span> <span class="dt">\</span></span>
+<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a> <span class="ex">taxonkit</span> reformat <span class="at">-r</span> NA <span class="at">-f</span> <span class="st">"{k}\t{p}\t{c}\t{o}\t{f}\t{g}\t{s}"</span> <span class="at">--data-dir</span> ./taxonomy <span class="kw">|</span> <span class="dt">\</span></span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a> <span class="fu">awk</span> <span class="st">'BEGIN { FS = OFS = "\t" } {print $1,"D_0__"$3";D_1__"$4";D_2__"$5";D_3__"$6";D_4__"$7";D_5__"$8";D_6__"$9}'</span> <span class="op">&gt;</span> taxID_to_tax.txt </span>
+<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../../../..</span>
+<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="silva-ssu" class="level3">
+<h3 class="anchored" data-anchor-id="silva-ssu">Silva (SSU)</h3>
+<section id="download-data-and-parse-for-general-use" class="level4">
+<h4 class="anchored" data-anchor-id="download-data-and-parse-for-general-use">Download data and parse for general use</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> db/silva/general/</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> db/ncbi/taxonomy </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#download ncbi taxonomy </span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-N</span> ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdump.tar.gz</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> zxf taxdump.tar.gz <span class="at">-C</span> db/ncbi/taxonomy</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> taxdump.tar.gz</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co">#download SILVA 16S sequences</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> db/silva/general </span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://www.arb-silva.de/fileadmin/silva_databases/current/Exports/SILVA_138.1_SSURef_NR99_tax_silva.fasta.gz</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-d</span> <span class="pp">*</span>.gz</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co">#clean fasta header</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-d</span> <span class="st">' '</span> <span class="at">-f1</span> SILVA_138.1_SSURef_NR99_tax_silva.fasta <span class="op">&gt;</span> silva-ref.fasta</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co">#get the silva id to ncbi taxID mapping file (notice: the mapping has a lot of nas, discard)</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://www.arb-silva.de/fileadmin/silva_databases/current/Exports/taxonomy/ncbi/taxmap_embl-ebi_ena_ssu_ref_nr99_138.1.txt.gz <span class="at">-q</span> <span class="at">-O</span> <span class="at">-</span> <span class="kw">|</span> <span class="fu">gzip</span> <span class="at">-d</span> <span class="at">-c</span> <span class="at">-</span> <span class="kw">|</span>  <span class="fu">awk</span> <span class="st">'{print $1"."$2"."$3"\t"$(NF)}'</span> <span class="op">&gt;</span> ref-tax.map</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="ex">taxonkit</span> lineage <span class="at">--data-dir</span> db/ncbi/taxonomy <span class="op">&lt;(</span><span class="fu">awk</span> <span class="st">'{print $2}'</span> ref-tax.map <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span><span class="op">)</span> <span class="kw">|</span> <span class="dt">\</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>  <span class="ex">taxonkit</span> reformat <span class="at">-r</span> NA <span class="at">-f</span> <span class="st">"{k}\t{p}\t{c}\t{o}\t{f}\t{g}\t{s}"</span> <span class="at">--data-dir</span> db/ncbi/taxonomy <span class="kw">|</span> <span class="dt">\</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">awk</span> <span class="st">'BEGIN { FS = OFS = "\t" } {print $1,"D_0__"$3";D_1__"$4";D_2__"$5";D_3__"$6";D_4__"$7";D_5__"$8";D_6__"$9}'</span> <span class="op">&gt;</span> taxID_to_tax.txt </span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="co">#merge the info, for missing hits add a string with NAs</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'NR==FNR{taxonomy[$1]=$2; next} {print $1, ($2 in taxonomy) ? taxonomy[$2] : "D_0__NA;D_1__NA;D_2__NA;D_3__NA;D_4__NA;D_5__NA;D_6__NA"}'</span> taxID_to_tax.txt  ref-tax.map <span class="op">&gt;</span> silva-ref-taxonomy.txt</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a><span class="co">#merge things: taxID_to_tax.txt  1 and ref-tax.map 2</span></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">join</span> <span class="at">-1</span> 2 <span class="at">-2</span> 1 <span class="at">-t</span> <span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k</span> 2 ref-tax.map<span class="op">)</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k1</span> taxID_to_tax.txt <span class="kw">|</span> <span class="fu">sed</span> <span class="st">"s/ /_/g"</span><span class="op">)</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="at">-v</span> OFS=<span class="st">"\t"</span> <span class="st">'{print $2, $3}'</span> <span class="op">&gt;</span> sequence_to_tax.txt</span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../..</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="parse-and-download-db-for-minimap" class="level4">
+<h4 class="anchored" data-anchor-id="parse-and-download-db-for-minimap">Parse and download db for minimap</h4>
+<p>The code below is sufficient to read the data into minimap2.</p>
+</section>
+<section id="parse-and-download-db-for-kraken" class="level4">
+<h4 class="anchored" data-anchor-id="parse-and-download-db-for-kraken">Parse and download db for kraken</h4>
+<p>The code below generates a database to run kraken. Notice, that this does not use the default Silva database with links to the silva taxonomy but generates a database with the SILVA 16S rRNA gene sequences and labels based on the NCBI taxonomy.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate nanopore </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> db/silva/kraken</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> db/silva/kraken/library </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">#based on the Silva files generate a mapping file for a fasta header suitable for kraken</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/generate_header_for_kraken.py <span class="at">-i</span> db/silva/general/sequence_to_tax.txt <span class="at">-o</span> db/silva/general/sequence_to_krakenFmanual.txt</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">#use mapping file to convert the fasta header into a kraken2 compatible format</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/convert_fasta_for_kraken.py <span class="at">-f</span> db/silva/general/silva-ref.fasta <span class="at">-m</span> db/silva/general/sequence_to_krakenFmanual.txt <span class="at">-o</span> db/silva/general/silva-ref-modified.fasta</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Add NAs for unassigned taxa and convert to single line fasta with T instead of Us</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'s/;;/;NA/g'</span> db/silva/general/silva-ref-modified.fasta <span class="kw">|</span> <span class="dt">\</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sed</span> <span class="st">'/^&gt;/!s/U/T/g'</span><span class="kw">|</span> <span class="dt">\</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">awk</span> <span class="st">'/^&gt;/ {if(NR!=1) printf("\n%s\n",$0); else printf("%s\n",$0); next; } { printf("%s",$0);} END {printf("\n");}'</span> <span class="op">&gt;</span> db/silva/kraken/library/silva-ref-modified.fna</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co">#add symlink to ncbi taxonomy </span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> <span class="va">$PWD</span>/db/ncbi/taxonomy <span class="va">$PWD</span>/db/silva/kraken/taxonomy</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="co">#generate seqid2taxid.map that links the seqID to the ncbi tax ids</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> db/silva/general/ref-tax.map db/silva/kraken/seqid2taxid.map</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="co">#generate db</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="co">#added fast-build option because run seemed stalled</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 32 kraken2-build <span class="at">--build</span> <span class="at">--fast-build</span> <span class="at">--threads</span> 32 <span class="at">--db</span> db/silva/kraken  </span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a><span class="co">#generate a mapping file for the sequence ID and tax string</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="ex">taxonkit</span> lineage <span class="at">--data-dir</span> db/silva/kraken_test2/taxonomy <span class="op">&lt;(</span><span class="fu">awk</span> <span class="st">'{print $1}'</span> db/silva/kraken/taxonomy/names.dmp <span class="kw">|</span><span class="dt">\</span></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span><span class="op">)</span> <span class="kw">|</span> <span class="dt">\</span></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a> <span class="ex">taxonkit</span> reformat <span class="at">-r</span> NA <span class="at">-f</span> <span class="st">"{k}\t{p}\t{c}\t{o}\t{f}\t{g}\t{s}"</span> <span class="at">--data-dir</span> db/silva/kraken/taxonomy <span class="kw">|</span> <span class="dt">\</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a> <span class="fu">awk</span> <span class="st">'BEGIN { FS = OFS = "\t" } {print $1,"D_0__"$3";D_1__"$4";D_2__"$5";D_3__"$6";D_4__"$7";D_5__"$8";D_6__"$9}'</span> <span class="op">&gt;</span> db/silva/kraken/taxID_to_tax.txt </span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a><span class="co">#reformat a string to be recognized by a downstream script</span></span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="at">-i</span> <span class="st">'s|D_0__;D_1__;D_2__;D_3__;D_4__;D_5__;D_6__|D_0__NA;D_1__NA;D_2__NA;D_3__NA;D_4__NA;D_5__NA;D_6__NA|g'</span> db/silva/kraken/taxID_to_tax.txt</span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../../../..</span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>rule download_dbs:</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    output:</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>        silva_general_fasta <span class="op">=</span> os.path.join(my_basedir,<span class="st">"db/silva/general/silva-ref.fasta"</span>),</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        silva_general_tax <span class="op">=</span> os.path.join(my_basedir, <span class="st">"db/silva/general/silva-ref-taxonomy.txt"</span>),</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        unite_general_fasta <span class="op">=</span> os.path.join(my_basedir,<span class="st">"db/unite/general/unite-ref-seqs.fna"</span>),</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        unite_general_tax <span class="op">=</span> os.path.join(my_basedir, <span class="st">"db/unite/general/unite-ref-taxonomy.txt"</span>),</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>        silva_kraken_db <span class="op">=</span> os.path.join(my_basedir, <span class="st">"/db/silva/kraken/"</span>),</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>        unite_kraken_db <span class="op">=</span> os.path.join(my_basedir, <span class="st">"/db/unite/kraken/"</span>)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    log:</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>        <span class="co">"logs/run_download_db.log"</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    conda:</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>        <span class="co">"../envs/nanopore.yaml"</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    threads: <span class="dv">1</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    shell: <span class="st">"""</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="st">    wget -q -O db.tar.gz https://zenodo.org/records/10052996/files/db.tar.gz?download=1</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="st">    #extract general silva db</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="st">    tar -zxvf db.tar.gz -C </span><span class="sc">{my_basedir}</span><span class="st">/db/silva/general/ </span><span class="ch">\</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="st">        --wildcards --no-anchored 'silva-ref.fasta' -O &gt; </span><span class="sc">{output.silva_general_fasta}</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="st">    tar -zxvf db.tar.gz -C </span><span class="sc">{my_basedir}</span><span class="st">/db/silva/general/ </span><span class="ch">\</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="st">        --wildcards --no-anchored 'silva-ref-taxonomy.txt' -O &gt; </span><span class="sc">{output.silva_general_tax}</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="st">    #extract general unite db</span></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="st">    tar -zxvf db.tar.gz -C </span><span class="sc">{my_basedir}</span><span class="st">/db/unite/general/ </span><span class="ch">\</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a><span class="st">        --wildcards --no-anchored 'unite-ref-seqs.fna' -O &gt; </span><span class="sc">{output.unite_general_fasta}</span></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a><span class="st">    tar -zxvf db.tar.gz -C </span><span class="sc">{my_basedir}</span><span class="st">/db/unite/general/ </span><span class="ch">\</span></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a><span class="st">        --wildcards --no-anchored 'unite-ref-taxonomy.txt' -O &gt; </span><span class="sc">{output.unite_general_tax}</span></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a><span class="st">    #extract kraken db for silva and unite</span></span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a><span class="st">    tar -zxvf db.tar.gz -C </span><span class="sc">{output.silva_kraken_db}</span><span class="st"> --wildcards --no-anchored 'db/silva/kraken/*' --strip-components=3</span></span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a><span class="st">    tar -zxvf db.tar.gz -C </span><span class="sc">{output.unite_kraken_db}</span><span class="st"> --wildcards --no-anchored 'db/unite/kraken/*' --strip-components=3</span></span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>rule run_minimap_SSU:</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span>:</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        query <span class="op">=</span> <span class="st">"results/itsx/</span><span class="sc">{sample}</span><span class="st">/</span><span class="sc">{sample}</span><span class="st">_</span><span class="sc">{marker}</span><span class="st">_final.fasta"</span>,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        silva_general_fasta <span class="op">=</span> os.path.join(my_basedir, <span class="st">"db/silva/general/silva-ref.fasta"</span>),</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>        unite_general_fasta <span class="op">=</span> os.path.join(my_basedir, <span class="st">"db/unite/general/unite-ref-seqs.fna"</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    output:</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        <span class="co">"results/classification/minimap2/{sample}/{sample}_{marker}_minimap2.paf"</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    params:</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>        threads<span class="op">=</span>config[<span class="st">"minimap2"</span>][<span class="st">"threads"</span>]</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    resources:</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>        mem_mb <span class="op">=</span> <span class="kw">lambda</span> wildcards, attempt: attempt <span class="op">*</span> config[<span class="st">"minimap2"</span>][<span class="st">"memory"</span>]</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    log:</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>        <span class="co">"logs/run_minimap2_{sample}_{marker}.log"</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    conda:</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>        <span class="co">"../envs/nanopore.yaml"</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    shell: <span class="st">"""</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="st">    if [ "</span><span class="sc">{wildcards.marker}</span><span class="st">" == "SSU" ]; then</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="st">        reference_fasta="</span><span class="sc">{input.silva_general_fasta}</span><span class="st">"</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="st">    elif [ "</span><span class="sc">{wildcards.marker}</span><span class="st">" == "ITS1" ]; then</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="st">        reference_fasta="</span><span class="sc">{input.unite_general_fasta}</span><span class="st">"</span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="st">    else</span></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="st">        echo "Unsupported marker: </span><span class="sc">{wildcards.marker}</span><span class="st">"</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a><span class="st">    fi</span></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a><span class="st">    echo "Running with </span><span class="sc">{params.threads}</span><span class="st"> threads."  </span></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="st">    echo "Used database for </span><span class="sc">{wildcards.marker}</span><span class="st"> in minimap2: $reference_fasta" </span></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a><span class="st">    echo "Starting minimap --version"</span></span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a><span class="st">    minimap_version=$(minimap2 --version)</span></span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a><span class="st">    echo "$minimap_version"</span></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a><span class="st">    minimap2 -cx map-ont -t </span><span class="sc">{params.threads}</span><span class="st"> </span><span class="ch">\</span></span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a><span class="st">            -N 10 -K 25M </span><span class="ch">\</span></span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a><span class="st">            $reference_fasta </span><span class="ch">\</span></span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a><span class="st">            </span><span class="sc">{input.query}</span><span class="st"> </span><span class="ch">\</span></span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a><span class="st">            -o </span><span class="sc">{output}</span></span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

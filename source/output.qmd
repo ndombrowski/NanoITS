@@ -1,0 +1,63 @@
+---
+title: "Generated files"
+
+execute:
+  eval: false
+
+engine: knitr
+
+bibliography: references.bib
+---
+
+Other than the Snakemake report, this workflow keeps most intermediate files to allow the user to inspect any output as needed. More specifically, the `results/{project}` folder contains the following:
+
+
+```
+├── benchmarks
+├── classification
+│    └── {classifier}
+│        └── {sample}
+│           ├── {sample}_{marker}_kraken2.otumat
+│           ├── {sample}_{marker}_kraken2.out
+│           ├── {sample}_{marker}_kraken2.report
+│           ├── {sample}_{marker}_kraken2.taxlist
+│           └── {sample}_{marker}_kraken2.taxmat
+├── itsx
+│   ├── avg_seq_length.txt
+│   ├── avg_seq_nr.txt
+│   └── {sample}
+│           ├── {sample}.graph
+│           ├── {sample}.hmmer.table
+│           ├── {sample}.{marker}.fasta
+│           ├── {sample}_{marker}_final.fasta
+│           ├── {sample}_no_detections.fasta
+│           ├── {sample}_no_detections.txt
+│           ├── {sample}.positions.txt
+│           ├── {sample}.problematic.txt
+│           └── {sample}.summary.txt
+├── plotting
+│   └── {marker}
+│    │   └── {marker}_Barplot_{ra,counts}_{taxonomy}_rank.pdf
+├── quality_checks
+│    ├── 1_unfiltered
+│    │   ├── nanostat
+│    │   │   └── {sample}_unfiltered_stats.txt
+│    │   └── pistis
+│    |       └── {sample}.pdf
+│    └── 2_filtered
+│        ├── nanostat
+│        │   └── {sample}_filtered_stats.txt
+│        └── pistis
+│            └── {sample}.pdf
+├── reads
+│    └── 2_qual_filtered_reads
+│        ├── 1_porechop
+│        |    └── {sample}.fastqc.gz
+│        ├── 2_chopper
+│        |    └── {sample}.fastqc.gz
+│        └── 3_fasta
+│            └── {sample}.fasta
+└── tables
+    ├── {marker}_otu_table_filtered.txt
+    └── {marker}_otu_table.txt
+```

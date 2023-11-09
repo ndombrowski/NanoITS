@@ -1,0 +1,464 @@
+### Development stage
+
+#### Setup snakemake
+
+```{bash}
+mamba create -n snakemake_7.32.4 -c conda-forge -c bioconda snakemake=7.32.4
+```
+
+
+```{bash}
+conda deactivate
+export LC_ALL=en_US.UTF-8
+
+#set working directory
+wdir="/home/ndombro/personal/snakemake_workflows/NanoITS"
+
+cd $wdir 
+
+mamba activate snakemake_7.32.4
+```
+
+
+#### Organize folder structure
+
+```{bash}
+#organize folders
+# mkdir -p workflow/scripts
+# mkdir workflow/envs
+# mkdir workflow/rules
+# mkdir workflow/report
+
+mkdir docs
+mkdir config
+
+mkdir -p input/raw
+mkdir -p input/combined
+
+echo -e 'barcode02\nbarcode05' > input/samples.txt
+echo -e "test" >  workflow/report/workflow.rst
+
+cp /home/ndombro/personal/snakemake_workflows/fungomics/config/config.yaml config
+cp ~/personal/snakemake_workflows/fungomics/jobscript.sh .
+```
+
+
+
+#### Get yaml for existing workflows
+
+```{bash}
+conda activate nanopore
+conda env export > workflow/envs/nanopore.yaml
+conda deactivate
+
+conda activate r_for_amplicon
+conda env export > workflow/envs/r_for_amplicon.yaml 
+conda deactivate
+```
+
+
+#### Prepare db folder
+
+We will prepare a db folder that can be downloaded from zenodo. The reason for doing that is because unite can not be downloaded via wget since one needs to fill out a form. Therefore, we will the already prepared databases via zenodo.
+
+```{bash}
+cd /home/ndombro/personal/for_zenodo/fungomics/db
+
+mkdir unite/general
+mkdir silva/general
+
+#db used by minimap
+cp ~/personal/projects/fungomics/mangrove/db/unite/general_release/unite-ref-seqs.fna unite/general/
+cp ~/personal/projects/fungomics/mangrove/db/unite/general_release/unite-ref-taxonomy.txt unite/general/
+
+cp ~/personal/projects/fungomics/mangrove/db/silva/general/silva-ref-taxonomy.txt silva/general/
+cp ~/personal/projects/fungomics/mangrove/db/silva/general/silva-ref.fasta silva/general/
+
+#db used by kraken
+cp -r ~/personal/projects/fungomics/mangrove/db/unite/general_release/db_kraken/* unite/
+
+cp -r ~/personal/projects/fungomics/mangrove/db/silva/kraken silva/
+
+#clean up symbolic links
+cd silva/kraken
+rm -r taxonomy
+cp -r /home/ndombro/personal/projects/fungomics/mangrove/db/ncbi/taxonomy/ .
+
+cd ../../..
+
+#compress
+tar -zcvf db.tar.gz db
+```
+
+
+
+#### Prepare test data
+
+```{bash}
+ln -s /zfs/omics/personal/ndombro/projects/fungomics/mangrove/data/fastq_pass/barcode02/ ${PWD}/input/raw
+ln -s /zfs/omics/personal/ndombro/projects/fungomics/mangrove/data/fastq_pass/barcode05/ ${PWD}/input/raw
+
+for i in `cat input/samples.txt`; do
+  cat input/raw/${i}/*fastq.gz > input/combined/${i}.fastq.gz
+done
+
+# cp input/raw/barcode02/aps797_pass_barcode02_72052f83_778f88e7_2.fastq.gz input/combined/barcode02.fastq.gz
+# cp input/raw/barcode05/aps797_pass_barcode05_72052f83_778f88e7_2.fastq.gz input/combined/barcode05.fastq.gz
+
+echo -e 'sample,barcode,path\nbc02,barcode02,input/combined/barcode02.fastq.gz\nbc05,barcode05,input/combined/barcode05.fastq.gz' > input/mapping.txt
+
+echo $(zcat input/combined/barcode02.fastq.gz | wc -l)/4|bc
+echo $(zcat input/combined/barcode05.fastq.gz | wc -l)/4|bc
+
+echo $(zcat input/raw/barcode02/*fastq.gz | wc -l)/4|bc
+```
+
+
+
+
+
+```{bash}
+#dry-run
+snakemake --use-conda --cores 1 --configfile config/config.yaml --conda-prefix workflow/.snakemake/conda  --rerun-incomplete --nolock -np 
+
+#full run
+sbatch jobscript.sh
+
+#generate report
+snakemake --report report.html --configfile config/config.yaml 
+
+Rscript {my_basedir}/scripts/otu_analysis.R results/{project}/classification/*/${{i}}.merged.outmat.tsv ${{i}} results/{project}
+
+
+file_paths <- c("results/test_run/classification/minimap2/SSU.merged.outmat.tsv", "results/test_run/classification/kraken2/SSU.merged.outmat.tsv")
+marker_id <- "SSU"
+
+
+
+results/test_run/classification/minimap2/SSU.merged.outmat.tsv
+results/test_run/classification/kraken2/SSU.merged.outmat.tsv
+```
+
+
+
+## Other notes
+
+### Comment on fickle script:
+
+If you adjust something in the file path then `workflow/scripts/tomat.py` needs to be adjusted, esp this part:
+
+```{python}
+pathfile=" results/test_run/classification/minimap2/bc02/bc02_ITS1_minimap2.taxlist"
+
+parts = pathfile.split('/')
+dir = '/'.join(parts[:4])
+
+project = parts[1]
+method = parts[3]
+sample = parts[4]
+marker = parts[5].split('_')[1]
+
+outpath = f"{dir}/{sample}/{sample}_{marker}_{method}"
+
+
+```
+
+
+In `workflow/scripts/merge_otu_tables.py` adjust:
+
+```{python}
+barcode = os.path.join(root, dir).split(os.path.sep)[4]
+```
+
+
+
+
+### Notes on how the taxonomy files were generated
+
+
+Currently, the workflow supports two databases:
+
+- Unite for ITS1 marker gene analyses (linked to the Unite taxonomy)
+- Silva for 16S/18S rRNA gene analyes (linked to the NCBI taxonomy)
+
+Below, you find the code to:
+
+1. Download the sequences for both databases
+2. Download a taxonomy mapping file (Silva) or generate a custom mapping file (Unite)
+3. Parse these two to be suited for use in the Minimap2 and Kraken2 classification step
+
+
+### Unite (ITS)
+
+#### Download db
+
+Unite can not be downloaded via wget since one needs to receive a download link via mail. But the data was downloaded via the web browser on 0210223 from [this website](https://doi.plutof.ut.ee/doi/10.15156/BIO/2938069) and [this website](https://doi.plutof.ut.ee/doi/10.15156/BIO/2938081) then uploaded to crunchomics into the working directory and this folder `db/unite/general_release`:
+
+```{bash}
+mkdir -p db/unite/general_release
+
+cd db/unite/general_release
+tar -zxvf sh_general_release_all_18.07.2023.tgz
+cd ../..
+```
+
+#### Parse db for minimap2
+
+Arguments for `shorten_fasta_headers.py`:
+
+- `--header_part INT`: The unite file has a longer header with different elements separated by "|", here we just decide which element after separation we want to keep. 
+
+```{bash}
+#shorten header 
+python scripts/shorten_fasta_headers.py -i db/unite/general_release/sh_general_release_dynamic_all_18.07.2023.fasta -o db/unite/general_release/unite-ref-seqs.fna --header_part 3
+
+#check if headers are unique
+grep ">" db/unite/general_release/unite-ref-seqs.fna | sort | uniq -d
+
+#make a taxon mapping file 
+python scripts/parse_unite_tax.py -i db/unite/general_release/sh_general_release_dynamic_all_18.07.2023.fasta  -o db/unite/general_release/unite-ref-taxonomy.txt
+```
+
+
+#### Parse db for kraken2
+
+Notice: To convert the fasta header to a taxonomy mapping file, a perl script that is part of kraken2 was used. This script can be found in the `scripts` folder but originally comes from [here](https://github.com/DerrickWood/kraken2/blob/master/scripts/build_rdp_taxonomy.pl#L30) and was downloaded with `wget -P scripts https://raw.githubusercontent.com/DerrickWood/kraken2/master/scripts/build_rdp_taxonomy.pl`.
+
+```{bash}
+conda activate nanopore
+cd db/unite/general_release
+
+mkdir -p ./db_kraken
+
+#convert fasta header into something that can be used by kraken2 for db generation
+perl -pe '
+  s/>([^\|]+)\|([^\|]+)\|([^\|]+)/>$2 $1; $3/;
+  s/\|re[a-z]s_*[a-z]*\|k__Fungi/\tLineage=Root;rootrank;Fungi;domain/g;
+  s/\|re[a-z]s_*[a-z]*\|k__Viridiplantae/\tLineage=Root;rootrank;Viridiplantae;domain/g;
+  s/\|re[a-z]s_*[a-z]*\|k__Eukaryota_kgd_Incertae_sedis/\tLineage=Root;rootrank;Eukaryota_kgd_Incertae_sedis;domain/g;
+  s/\|re[a-z]s_*[a-z]*\|k__Alveolata/\tLineage=Root;rootrank;Alveolata;domain/g;
+  s/\|re[a-z]s_*[a-z]*\|k__Amoebozoa/\tLineage=Root;rootrank;Amoebozoa;domain/g;
+  s/\|re[a-z]s_*[a-z]*\|k__Apusozoa/\tLineage=Root;rootrank;Apusozoa;domain/g;
+  s/\|re[a-z]s_*[a-z]*\|k__Choanoflagellozoa/\tLineage=Root;rootrank;Choanoflagellozoa;domain/g;
+  s/\|re[a-z]s_*[a-z]*\|k__Cryptista/\tLineage=Root;rootrank;Cryptista;domain/g;
+  s/\|re[a-z]s_*[a-z]*\|k__Euglenozoa/\tLineage=Root;rootrank;Euglenozoa;domain/g;
+  s/\|re[a-z]s_*[a-z]*\|k__Glaucocystoplantae/\tLineage=Root;rootrank;Glaucocystoplantae;domain/g;
+  s/\|re[a-z]s_*[a-z]*\|k__Haptista/\tLineage=Root;rootrank;Haptista;domain/g;
+  s/\|re[a-z]s_*[a-z]*\|k__Heterolobosa/\tLineage=Root;rootrank;Heterolobosa;domain/g;
+  s/\|re[a-z]s_*[a-z]*\|k__Ichthyosporia/\tLineage=Root;rootrank;Ichthyosporia;domain/g;
+  s/\|re[a-z]s_*[a-z]*\|k__Metazoa/\tLineage=Root;rootrank;Metazoa;domain/g;
+  s/\|re[a-z]s_*[a-z]*\|k__Planomonada/\tLineage=Root;rootrank;Planomonada;domain/g;
+  s/\|re[a-z]s_*[a-z]*\|k__Protista/\tLineage=Root;rootrank;Protista;domain/g;
+  s/\|re[a-z]s_*[a-z]*\|k__Rhizaria/\tLineage=Root;rootrank;Rhizaria;domain/g;
+  s/\|re[a-z]s_*[a-z]*\|k__Rhodoplantae/\tLineage=Root;rootrank;Rhodoplantae;domain/g;
+  s/\|re[a-z]s_*[a-z]*\|k__Stramenopila/\tLineage=Root;rootrank;Stramenopila;domain/g;
+  s/\|/ /g;
+  s/;s__*.*//g;
+  s/p__([a-zA-Z0-9_ -]*)/\1;phylum/g;
+  s/c__([a-zA-Z0-9_ -]*)/\1;class/g;
+  s/o__([a-zA-Z0-9_ -]*)/\1;order/g;
+  s/f__([a-zA-Z0-9_ -]*)/\1;family/g;
+  s/g__([a-zA-Z0-9_ -]*)/\1;genus/g;
+  s/;$//g'  sh_general_release_dynamic_all_18.07.2023.fasta > ./db_kraken/kunite.fasta
+
+#generate taxonomy mapping files based on the fasta header
+perl ../../../scripts/build_rdp_taxonomy.pl ./db_kraken/kunite.fasta
+
+#organize folder structure
+mkdir -p ./db_kraken/library 
+mv ./db_kraken/kunite.fasta ./db_kraken/library/unite.fna
+mkdir -p ./db_kraken/taxonomy
+mv names.dmp nodes.dmp ./db_kraken/taxonomy
+mv seqid2taxid.map ./db_kraken
+
+#buld db
+kraken2-build --build --db db_kraken
+
+#convert to taxID_to_string mapping
+cd db_kraken
+
+taxonkit lineage --data-dir ./taxonomy <(awk '{print $2}' seqid2taxid.map |\
+ sort | uniq) | \
+ taxonkit reformat -r NA -f "{k}\t{p}\t{c}\t{o}\t{f}\t{g}\t{s}" --data-dir ./taxonomy | \
+ awk 'BEGIN { FS = OFS = "\t" } {print $1,"D_0__"$3";D_1__"$4";D_2__"$5";D_3__"$6";D_4__"$7";D_5__"$8";D_6__"$9}' > taxID_to_tax.txt 
+
+cd ../../../..
+
+conda deactivate
+```
+
+### Silva (SSU)
+
+#### Download data and parse for general use
+
+
+```{bash}
+mkdir -p db/silva/general/
+mkdir -p db/ncbi/taxonomy 
+
+#download ncbi taxonomy 
+wget -N ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdump.tar.gz
+tar zxf taxdump.tar.gz -C db/ncbi/taxonomy
+rm taxdump.tar.gz
+
+#download SILVA 16S sequences
+cd db/silva/general 
+wget https://www.arb-silva.de/fileadmin/silva_databases/current/Exports/SILVA_138.1_SSURef_NR99_tax_silva.fasta.gz
+gzip -d *.gz
+
+#clean fasta header
+cut -d ' ' -f1 SILVA_138.1_SSURef_NR99_tax_silva.fasta > silva-ref.fasta
+
+#get the silva id to ncbi taxID mapping file (notice: the mapping has a lot of nas, discard)
+wget https://www.arb-silva.de/fileadmin/silva_databases/current/Exports/taxonomy/ncbi/taxmap_embl-ebi_ena_ssu_ref_nr99_138.1.txt.gz -q -O - | gzip -d -c - |  awk '{print $1"."$2"."$3"\t"$(NF)}' > ref-tax.map
+
+taxonkit lineage --data-dir db/ncbi/taxonomy <(awk '{print $2}' ref-tax.map | sort | uniq) | \
+  taxonkit reformat -r NA -f "{k}\t{p}\t{c}\t{o}\t{f}\t{g}\t{s}" --data-dir db/ncbi/taxonomy | \
+  awk 'BEGIN { FS = OFS = "\t" } {print $1,"D_0__"$3";D_1__"$4";D_2__"$5";D_3__"$6";D_4__"$7";D_5__"$8";D_6__"$9}' > taxID_to_tax.txt 
+
+#merge the info, for missing hits add a string with NAs
+awk -F'\t' -v OFS='\t' 'NR==FNR{taxonomy[$1]=$2; next} {print $1, ($2 in taxonomy) ? taxonomy[$2] : "D_0__NA;D_1__NA;D_2__NA;D_3__NA;D_4__NA;D_5__NA;D_6__NA"}' taxID_to_tax.txt  ref-tax.map > silva-ref-taxonomy.txt
+
+#merge things: taxID_to_tax.txt  1 and ref-tax.map 2
+LC_ALL=C join -1 2 -2 1 -t $'\t' <(LC_ALL=C sort -k 2 ref-tax.map) <(LC_ALL=C sort -k1 taxID_to_tax.txt | sed "s/ /_/g") | awk -v OFS="\t" '{print $2, $3}' > sequence_to_tax.txt
+
+cd ../..
+```
+
+#### Parse and download db for minimap
+
+The code below is sufficient to read the data into minimap2.
+
+
+#### Parse and download db for kraken
+
+The code below generates a database to run kraken. Notice, that this does not use the default Silva database with links to the silva taxonomy but generates a database with the SILVA 16S rRNA gene sequences and labels based on the NCBI taxonomy.
+
+```{bash}
+conda activate nanopore 
+
+mkdir -p db/silva/kraken
+mkdir -p db/silva/kraken/library 
+
+#based on the Silva files generate a mapping file for a fasta header suitable for kraken
+python scripts/generate_header_for_kraken.py -i db/silva/general/sequence_to_tax.txt -o db/silva/general/sequence_to_krakenFmanual.txt
+
+#use mapping file to convert the fasta header into a kraken2 compatible format
+python scripts/convert_fasta_for_kraken.py -f db/silva/general/silva-ref.fasta -m db/silva/general/sequence_to_krakenFmanual.txt -o db/silva/general/silva-ref-modified.fasta
+
+#Add NAs for unassigned taxa and convert to single line fasta with T instead of Us
+sed 's/;;/;NA/g' db/silva/general/silva-ref-modified.fasta | \
+  sed '/^>/!s/U/T/g'| \
+  awk '/^>/ {if(NR!=1) printf("\n%s\n",$0); else printf("%s\n",$0); next; } { printf("%s",$0);} END {printf("\n");}' > db/silva/kraken/library/silva-ref-modified.fna
+
+#add symlink to ncbi taxonomy 
+ln -s $PWD/db/ncbi/taxonomy $PWD/db/silva/kraken/taxonomy
+
+#generate seqid2taxid.map that links the seqID to the ncbi tax ids
+cp db/silva/general/ref-tax.map db/silva/kraken/seqid2taxid.map
+
+#generate db
+#added fast-build option because run seemed stalled
+srun -n 1 --cpus-per-task 32 kraken2-build --build --fast-build --threads 32 --db db/silva/kraken  
+
+#generate a mapping file for the sequence ID and tax string
+taxonkit lineage --data-dir db/silva/kraken_test2/taxonomy <(awk '{print $1}' db/silva/kraken/taxonomy/names.dmp |\
+ sort | uniq) | \
+ taxonkit reformat -r NA -f "{k}\t{p}\t{c}\t{o}\t{f}\t{g}\t{s}" --data-dir db/silva/kraken/taxonomy | \
+ awk 'BEGIN { FS = OFS = "\t" } {print $1,"D_0__"$3";D_1__"$4";D_2__"$5";D_3__"$6";D_4__"$7";D_5__"$8";D_6__"$9}' > db/silva/kraken/taxID_to_tax.txt 
+
+#reformat a string to be recognized by a downstream script
+sed -i 's|D_0__;D_1__;D_2__;D_3__;D_4__;D_5__;D_6__|D_0__NA;D_1__NA;D_2__NA;D_3__NA;D_4__NA;D_5__NA;D_6__NA|g' db/silva/kraken/taxID_to_tax.txt
+
+cd ../../../..
+
+conda deactivate
+```
+
+
+
+```{python}
+rule download_dbs:
+    output:
+        silva_general_fasta = os.path.join(my_basedir,"db/silva/general/silva-ref.fasta"),
+        silva_general_tax = os.path.join(my_basedir, "db/silva/general/silva-ref-taxonomy.txt"),
+
+        unite_general_fasta = os.path.join(my_basedir,"db/unite/general/unite-ref-seqs.fna"),
+        unite_general_tax = os.path.join(my_basedir, "db/unite/general/unite-ref-taxonomy.txt"),
+
+        silva_kraken_db = os.path.join(my_basedir, "/db/silva/kraken/"),
+        unite_kraken_db = os.path.join(my_basedir, "/db/unite/kraken/")
+    log:
+        "logs/run_download_db.log"
+    conda:
+        "../envs/nanopore.yaml"
+    threads: 1
+    shell: """
+    wget -q -O db.tar.gz https://zenodo.org/records/10052996/files/db.tar.gz?download=1
+    
+    #extract general silva db
+    tar -zxvf db.tar.gz -C {my_basedir}/db/silva/general/ \
+        --wildcards --no-anchored 'silva-ref.fasta' -O > {output.silva_general_fasta}
+
+    tar -zxvf db.tar.gz -C {my_basedir}/db/silva/general/ \
+        --wildcards --no-anchored 'silva-ref-taxonomy.txt' -O > {output.silva_general_tax}
+
+    #extract general unite db
+    tar -zxvf db.tar.gz -C {my_basedir}/db/unite/general/ \
+        --wildcards --no-anchored 'unite-ref-seqs.fna' -O > {output.unite_general_fasta}
+
+    tar -zxvf db.tar.gz -C {my_basedir}/db/unite/general/ \
+        --wildcards --no-anchored 'unite-ref-taxonomy.txt' -O > {output.unite_general_tax}
+
+    #extract kraken db for silva and unite
+    tar -zxvf db.tar.gz -C {output.silva_kraken_db} --wildcards --no-anchored 'db/silva/kraken/*' --strip-components=3
+    tar -zxvf db.tar.gz -C {output.unite_kraken_db} --wildcards --no-anchored 'db/unite/kraken/*' --strip-components=3
+
+    """
+
+```
+
+
+
+```{python}
+rule run_minimap_SSU:
+    input:
+        query = "results/itsx/{sample}/{sample}_{marker}_final.fasta",
+        silva_general_fasta = os.path.join(my_basedir, "db/silva/general/silva-ref.fasta"),
+        unite_general_fasta = os.path.join(my_basedir, "db/unite/general/unite-ref-seqs.fna")
+    output:
+        "results/classification/minimap2/{sample}/{sample}_{marker}_minimap2.paf"
+    params:
+        threads=config["minimap2"]["threads"]
+    resources:
+        mem_mb = lambda wildcards, attempt: attempt * config["minimap2"]["memory"]
+    log:
+        "logs/run_minimap2_{sample}_{marker}.log"
+    conda:
+        "../envs/nanopore.yaml"
+    shell: """
+
+    if [ "{wildcards.marker}" == "SSU" ]; then
+        reference_fasta="{input.silva_general_fasta}"
+    elif [ "{wildcards.marker}" == "ITS1" ]; then
+        reference_fasta="{input.unite_general_fasta}"
+    else
+        echo "Unsupported marker: {wildcards.marker}"
+    fi
+
+    echo "Running with {params.threads} threads."  
+    echo "Used database for {wildcards.marker} in minimap2: $reference_fasta" 
+    
+    echo "Starting minimap --version"
+    minimap_version=$(minimap2 --version)
+    echo "$minimap_version"
+
+    minimap2 -cx map-ont -t {params.threads} \
+            -N 10 -K 25M \
+            $reference_fasta \
+            {input.query} \
+            -o {output}
+    """
+
+
+```

@@ -1,0 +1,187 @@
+################################################################################
+#                             CONFIGURATION FILE                               #
+#------------------------------------------------------------------------------#
+# Configuration file for the NanoITS  pipeline.                                #
+#                                                                              #
+# Set the parameters below, save the file and run Snakemake.                   #
+# In this config file, you specify                                             #
+# your input data, markers and classifiers to run                              #
+# and you can choose tools and parameters according to your needs              #
+# Most rules and parameters have default settings.                             #
+#                                                                              #
+# It is very important to keep the indentation of the file (i.e. don’t change  #
+# the tabs and spaces), as well as the name of the parameters/variables.       #
+# You can can however change the values of the parameters                      #
+#                                                                              #
+# @Author: Nina Dombrowski                                                     #
+# @Last update: 06/11/2023                                                     #
+################################################################################
+
+################################################################################
+#                       GENERAL PARAMETERS SECTION                             # 
+#------------------------------------------------------------------------------#
+# The general parameters section defines parameters that are global or general #
+# for the complete workflow.                                                   #
+################################################################################
+
+#------------------------------------------------------------------------------#
+#                             Project Name                                     #
+#------------------------------------------------------------------------------#
+# The name of the project for which the pipeline will be executed. Results will#
+# be found in results/projects> after a successful run                         #
+#------------------------------------------------------------------------------#
+project:            "run_v1"
+
+
+#                             Mapping File                                     #
+#------------------------------------------------------------------------------#
+# Location of the mapping file                                                 #
+# The mapping file should be a comma separated file with the following columns:#
+# sample,barcode,path                                                          #
+# the sample names can contain letters, numbers and , "-"                      #
+# do not use spaces in the file paths                                          #
+#------------------------------------------------------------------------------#
+samples_file:       "input/mapping.csv"
+
+#                             Classifiers to use                               #
+#------------------------------------------------------------------------------#
+# Choose what classifiers you want to use, currently, you can choose between:  #
+# 1. minimap2: an alignment-based classifier                                   #
+# 2. kraken2: a kmer-based classifier                                          #
+#------------------------------------------------------------------------------#
+classifiers:         ["minimap2", "kraken2"]
+
+
+#                             Markers to analyze                               #
+#------------------------------------------------------------------------------#
+# Choose what markers you want to classify. Currently, you can choose between: #
+# 1. SSU: Classify the 18S rRNA gene using the Silva database                  #
+# 2. ITS1: Classify the ITS1 gene using the unite database                     #
+#------------------------------------------------------------------------------#
+markers:             ["SSU", "ITS1"]
+
+
+################################################################################
+#                        Specific Parameters Section                           #
+#------------------------------------------------------------------------------#
+# In this section of the configuration file, you can find all the parameters   #
+# used to run the different rules during the execution of the pipeline.        #
+################################################################################
+
+#                             Number of threads to use                         #
+#------------------------------------------------------------------------------#
+# Number of threads to use                                                     #
+# For some tools that tend to be more resource-heavy you can individually      #
+# control the number of threads to use                                         #
+#------------------------------------------------------------------------------#
+threads:              5
+
+
+#------------------------------------------------------------------------------#
+#                        Quality control plotting                              #
+# modules: quality_control_raw.smk, quality_control_filtered.smk               #
+# rules: run_pistis_unfiltered, run_pistis_filtered                            #
+#------------------------------------------------------------------------------#
+#                                                                              #
+#-----------------------------       PARAMS       -----------------------------#
+#                                                                              #
+# - downsample: down-sample sequence files to a given number of reads.         #
+#               default: 0 means no down-sampling                              #
+# - memory:     memory to use, normally its ok to leave this value as is       #
+#------------------------------------------------------------------------------#
+pistis:
+  downsample:          0
+  memory:              4000
+
+
+#------------------------------------------------------------------------------#
+#                        Quality control filtering                             #
+# modules: quality_filtering.smk                                               #
+# rules: run_porechop, run_chopper                                             #
+#------------------------------------------------------------------------------#
+#                                                                              #
+#-----------------------------       PARAMS       -----------------------------#
+#                                                                              #
+# - threads:           number of threads to use                                #
+# - quality_score:     minimum Phred average quality score, reads with lower   #
+#                      quality scores will be discarded                        #
+# - min_length:        minimum read length, sequence shorter than this will be #
+#                      discarded                                               #
+# - max_length:        maximum read length, sequence longer than this will be  #
+#                      discarded                                               #
+# - headcrop:          trim N nucleotides from the start of a read             #
+# - tailcrop:          trim N nucleotides from the end of a read               #
+#------------------------------------------------------------------------------#
+filtering:
+  threads:             8
+  quality_score:       10
+  min_length:          250
+  max_length:          3000
+  headcrop:            0
+  tailcrop:            0
+
+
+#------------------------------------------------------------------------------#
+#                        Separate ITS1 and SSU                                 #
+# modules: run_itsx.smk                                                        #
+# rules: run_itsx, parse_itsx                                                  #
+#------------------------------------------------------------------------------#
+#                                                                              #
+#-----------------------------       PARAMS       -----------------------------#
+#                                                                              #
+# - threads:           number of threads to use                                #
+# - min_its_length:    minimum marker gene length, shorter sequence will be    #
+#                      discarded                                               #
+#------------------------------------------------------------------------------#
+itsx:
+  threads:             10
+  min_its_length:      500
+
+
+#------------------------------------------------------------------------------#
+#                        Classify with Minimap2                                #
+# modules: minimap2.smk                                                        #
+# rules: run_minimap, parse_minimap                                            #
+#------------------------------------------------------------------------------#
+#                                                                              #
+#-----------------------------       PARAMS       -----------------------------#
+#                                                                              #
+# - threads:              number of threads to use                             #
+# - coverage_threshold:   remove queries if less than 30% of the nucleotides   #
+#                         align to the target sequence, range [0-100]          #
+# - memory:               memory to use, normally its ok to leave this as is   #
+#------------------------------------------------------------------------------#
+minimap2:
+  threads:              10
+  coverage_threshold:   30
+  memory:               4000
+
+
+#------------------------------------------------------------------------------#
+#                        Classify with Kraken2                                 #
+# modules: kraken2.smk                                                         #
+# rules: run_kraken                                                            #
+#------------------------------------------------------------------------------#
+#                                                                              #
+#-----------------------------       PARAMS       -----------------------------#
+#                                                                              #
+# - confidence_score:   Confidence score threshold (default: 0.0); must be     #
+#                       range [0, 1]                                           #
+# - min_hit_nr:         Minimum number of hit groups (overlapping k-mers       #
+#                          sharing the same minimizer) needed to make a call   #
+#------------------------------------------------------------------------------#
+kraken2:
+  confidence_score:     0.01
+  min_hit_nr:           3
+
+
+
+################################################################################
+#                        Internal wildcards                                    #
+#------------------------------------------------------------------------------#
+# Some internal parameters the programs need but the user does not need        #
+# to worry about.                                                              #
+################################################################################
+db_download:         "https://zenodo.org/records/10052996/files/db.tar.gz?download=1"
+tax_ranks:           ["Phylum", "Class", "Order", "Family", "Genus"]
+group-by:             sample

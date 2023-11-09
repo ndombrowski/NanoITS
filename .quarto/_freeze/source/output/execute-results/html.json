@@ -1,0 +1,16 @@
+{
+  "hash": "06928a3e8b96d11b282f09be778a2541",
+  "result": {
+    "markdown": "---\ntitle: \"Generated files\"\n\nexecute:\n  eval: false\n\nengine: knitr\n\nbibliography: references.bib\n---\n\n\nOther than the Snakemake report, this workflow keeps most intermediate files to allow the user to inspect any output as needed. More specifically, the  the `results/{project}` folder contains the following:\n\n\n```\n├── benchmarks\n├── classification\n│    └── {classifier}\n│        └── {sample}\n│           ├── {sample}_{marker}_kraken2.otumat\n│           ├── {sample}_{marker}_kraken2.out\n│           ├── {sample}_{marker}_kraken2.report\n│           ├── {sample}_{marker}_kraken2.taxlist\n│           └── {sample}_{marker}_kraken2.taxmat\n├── itsx\n│   ├── avg_seq_length.txt\n│   ├── avg_seq_nr.txt\n│   └── {sample}\n│           ├── {sample}.graph\n│           ├── {sample}.hmmer.table\n│           ├── {sample}.{marker}.fasta\n│           ├── {sample}_{marker}_final.fasta\n│           ├── {sample}_no_detections.fasta\n│           ├── {sample}_no_detections.txt\n│           ├── {sample}.positions.txt\n│           ├── {sample}.problematic.txt\n│           └── {sample}.summary.txt\n├── plotting\n│   └── {marker}\n│    │   └── {marker}_Barplot_{ra,counts}_{taxonomy}_rank.pdf\n├── quality_checks\n│    ├── 1_unfiltered\n│    │   ├── nanostat\n│    │   │   └── {sample}_unfiltered_stats.txt\n│    │   └── pistis\n│    |       └── {sample}.pdf\n│    └── 2_filtered\n│        ├── nanostat\n│        │   └── {sample}_filtered_stats.txt\n│        └── pistis\n│            └── {sample}.pdf\n├── reads\n│    └── 2_qual_filtered_reads\n│        ├── 1_porechop\n│        |    └── {sample}.fastqc.gz\n│        ├── 2_chopper\n│        |    └── {sample}.fastqc.gz\n│        └── 3_fasta\n│            └── {sample}.fasta\n└── tables\n    ├── {marker}_otu_table_filtered.txt\n    └── {marker}_otu_table.txt\n```",
+    "supporting": [
+      "output_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
