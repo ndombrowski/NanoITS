@@ -15,6 +15,8 @@ When giving the tool some nanopore long-read data it will:
 
 We plan to in the future extend this workflow to also include the 28S/LSU.
 
+For a more detailed explanation, check out [the manual](https://ndombrowski.github.io/NanoITS/). 
+
 Below you can find the full workflow:
 
 ![](img/visualization.png)
@@ -25,12 +27,12 @@ Below you can find the full workflow:
 To run NanoITs, install conda and snakemake and clone the directory from github via:
 
 ```{python}
-git clone xx.git
+git clone https://github.com/ndombrowski/NanoITS.git
 ```
 
 Provide your sample names and path to the samples as a comma-separated file, for example, a file looking similar as the one provided in `example_files/mapping.csv`. Sample names should be unique and consist of letter, numbers and `-` only. The barcode column can be left empty as it is not yet implemented. The path should contain the path to your demultiplexed, compressed fastq file.
 
-Adjust `config/config.yaml` to configure the location of your mapping file as well as specificy the parameters used by NanoITs.
+Adjust `config/config.yaml` to configure the location of your mapping file as well as specify the parameters used by NanoITs.
 
 NanoITs can then be run with:
 
@@ -43,4 +45,4 @@ snakemake --use-conda --cores <nr_cores> \
   --rerun-incomplete --nolock -np 
 ```
 
-For a more detailed explanation, check out [the manual](xx).
+For a more detailed explanation, check out [the manual](https://ndombrowski.github.io/NanoITS/).

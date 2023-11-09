@@ -212,14 +212,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Classify the SSU and/or ITS1 gene using kraken2 and/or minimap2</li>
 <li>Generate taxonomic barplots and OTU tables</li>
 </ul>
-<p>We plan to in the future extend this workflow to also include the 28S/LSU.</p>
+<p>For a more detailed explanation, check out <a href="https://ndombrowski.github.io/NanoITS/">the manual</a>.</p>
 <p>Below you can find the full workflow:</p>
 <p><img src="img/visualization.png" class="img-fluid"></p>
 <section id="quick-start" class="level2">
 <h2 class="anchored" data-anchor-id="quick-start">Quick start</h2>
 <p>To run NanoITs, install conda and snakemake and clone the directory from github via:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>git clone xx.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>git clone https:<span class="op">//</span>github.com<span class="op">/</span>ndombrowski<span class="op">/</span>NanoITS.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Provide your sample names and path to the samples as a comma-separated file, for example, a file looking similar as the one provided in <code>example_files/mapping.csv</code>. Sample names should be unique and consist of letter, numbers and <code>-</code> only. The barcode column can be left empty as it is not yet implemented. The path should contain the path to your demultiplexed, compressed fastq file.</p>
 <p>Adjust <code>config/config.yaml</code> to configure the location of your mapping file as well as specificy the parameters used by NanoITs.</p>
@@ -231,7 +231,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">--</span>conda<span class="op">-</span>prefix <span class="op">&lt;</span>path_to_NanoITS_install<span class="op">&gt;/</span>workflow<span class="op">/</span>.snakemake<span class="op">/</span>conda  <span class="op">\</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">--</span>rerun<span class="op">-</span>incomplete <span class="op">--</span>nolock <span class="op">-</span>np </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>For a more detailed explanation, check out <a href="xx">the manual</a>.</p>
+<p>For a more detailed explanation, check out <a href="https://ndombrowski.github.io/NanoITS/">the manual</a>.</p>
 
 
 </section>

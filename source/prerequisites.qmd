@@ -29,12 +29,12 @@ To install snakemake, check out the installation instructions found [here](https
 NanoITS can be installed via git:
 
 ```{bash}
-git clone xx.git
+git clone https://github.com/ndombrowski/NanoITS.git
 ```
 
 If you do not have git installed, you can also download the folder from github. Therefore:
 
-1. Go to xx
+1. Go to <https://github.com/ndombrowski/NanoITS>
 2. Click the green code button
 3. Download zip
 4. Extract zip

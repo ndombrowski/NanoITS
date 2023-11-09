@@ -141,7 +141,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Description</span></a>
+ <span class="menu-text">NanoITS</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -212,7 +212,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>NanoITS will use compressed fastq files as input and generate OTU tables and some summary statistics as output. Please, provide a single fastq.gz file per sample.</p>
+<p>NanoITS will take de-multiplexed and compressed fastq files as input and generate OTU tables and some several summary statistics as output. Please, provide a single fastq.gz file per sample.</p>
 <section id="modify-the-configuration-file" class="level2">
 <h2 class="anchored" data-anchor-id="modify-the-configuration-file">Modify the configuration file</h2>
 <p>To run NanoITS you need to provide some information in the configuartion file. In the NanoITs configuration file, also called config.yaml, you can provide the sample name, sample path and modify some parameters for the different software used.</p>
@@ -227,7 +227,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>The mapping file</strong></p>
 <p>Here, you need to provide the path to a comma-separated mapping file that describes the samples you want to analyse, i.e.&nbsp;<code>samples_file: "input/mapping.csv"</code>. This file needs to contain the following columns:</p>
 <ol type="1">
-<li><code>sample</code>: The names of your sample. This id will be used to label all files created in subsequent steps. In your sample names you can use letters, numbers and <code>-</code>. Do not use other symbols, such as spaces, dots or underscores in your sample names.</li>
+<li><code>sample</code>: The names of your sample. This id will be used to label all files created in subsequent steps. Your sample names should be unique and only contain letters, numbers and <code>-</code>. Do not use other symbols, such as spaces, dots or underscores in your sample names.</li>
 <li><code>barcode</code>: The barcode ID. Can be empty as it is not actively used in the workflow as of now</li>
 <li><code>path</code>: Path to the fastq.gz files. You can provide the relative path (i.e.&nbsp;relative to the working directory you start the snakemake workflow in) or absolute path (i.e.&nbsp;the location of a file or directory from the root directory(<code>/</code>)). The workflow accepts one file per barcode, so if you have more than one file merge these files first, for example using the <code>cat</code> command.</li>
 </ol>
@@ -273,7 +273,7 @@ bc02,barcode02,/path/barcode02.fastq.gz
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--use-conda</span> <span class="at">--cores</span> 1 <span class="dt">\</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-s</span> <span class="op">&lt;</span>path_to_NanoITS_install<span class="op">&gt;</span>/workflow/Snakefile <span class="dt">\</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--configfile</span> config/config.yaml <span class="dt">\</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--conda-prefix</span> <span class="op">&lt;</span>path_to_NanoITS_install<span class="op">&gt;</span>/workflow/.snakemake/conda  <span class="dt">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--conda-prefix</span> <span class="op">&lt;</span>path_to_NanoITS_install<span class="op">&gt;</span>/workflow/.snakemake/conda <span class="dt">\</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--rerun-incomplete</span> <span class="at">--nolock</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -301,6 +301,7 @@ bc02,barcode02,/path/barcode02.fastq.gz
 <ul>
 <li>A shematic of the steps executed</li>
 <li>Information about the reads before and after quality filtering (one file for each sample)</li>
+<li>Information about the number of SSU and ITS1 sequences extracted before and after quality filtering</li>
 <li>The results from the different classifiers represented as barplots (total counts and relative abundance) for different taxonomic ranks</li>
 <li>Statistics of the snakemake run</li>
 </ul>
