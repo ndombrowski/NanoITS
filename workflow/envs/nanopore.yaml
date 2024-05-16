@@ -53,6 +53,7 @@ dependencies:
   - libunistring=0.9.10=h7f98852_0
   - libxml2=2.11.5=h232c23b_1
   - libzlib=1.2.13=hd590300_5
+  - minimap2=2.24
   - ncbi-vdb=3.0.0=pl5321h87f3376_0
   - ncurses=6.4=hcb278e6_0
   - numpy=1.19.5=py36hfc0c790_2

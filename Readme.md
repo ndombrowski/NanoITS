@@ -27,7 +27,7 @@ Below you can find the full workflow:
 To run NanoITs, install conda and use it to installed snakemake  as follows:
 
 ```{bash}
-mamba create --name snakemake -c conda-forge -c bioconda snakemake=7.32.4 python=3.11.6
+mamba create --name snakemake -c conda-forge -c bioconda snakemake=7.32.4 python=3.11.6 tabulate=0.8
 ```
 
 Afterwards, you can clone the directory from github via:
@@ -59,3 +59,4 @@ snakemake --use-conda --cores <nr_cores> \
 ```
 
 For a more detailed explanation, check out [the manual](https://ndombrowski.github.io/NanoITS/).
+

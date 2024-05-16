@@ -38,10 +38,10 @@ wildcard_constraints:
 # ======================================================
 rule all:
     input:
-        expand("results/{project}/quality_checks/1_unfiltered/nanostat/{sample}_unfiltered_stats.txt", project=config["project"]),
+        expand("results/{project}/quality_checks/1_unfiltered/nanostat/{sample}_unfiltered_stats.txt", sample=samples_table.index, project=config["project"]),
         expand("results/{project}/quality_checks/1_unfiltered/pistis/{sample}.pdf", sample=samples_table.index, project=config["project"]),
         expand("results/{project}/reads/2_qual_filtered_reads/3_fasta/{sample}.fasta", sample=samples_table.index, project=config["project"]),
-        expand("results/{project}/quality_checks/2_filtered/nanostat/{sample}_unfiltered_stats.txt", project=config["project"]),
+        expand("results/{project}/quality_checks/2_filtered/nanostat/{sample}_unfiltered_stats.txt", sample=samples_table.index, project=config["project"]),
         expand("results/{project}/quality_checks/2_filtered/pistis/{sample}.pdf", sample=samples_table.index, project=config["project"]),
         
         expand("results/{project}/itsx/{sample}/{sample}_{marker}_final.fasta", sample=samples_table.index, marker=config["markers"], project=config["project"]),

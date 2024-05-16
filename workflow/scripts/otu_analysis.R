@@ -7,7 +7,7 @@
 #  Defaults (change if needed)
 #___________________________________
 #samples with less than x reads are discarded
-max_reads_per_sample <- 20
+max_reads_per_sample <- 1
 
 #otus that occur just once across all samples are discarded
 otu_cutoff <- 1
