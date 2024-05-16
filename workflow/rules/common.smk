@@ -7,7 +7,10 @@ rule download_dbs:
         unite_general_tax = os.path.join(my_basedir, "db/unite/general/unite-ref-taxonomy.txt"),
 
         silva_kraken_db = directory(os.path.join(my_basedir, "db/silva/kraken/")),
-        unite_kraken_db = directory(os.path.join(my_basedir, "db/unite/kraken/"))
+        unite_kraken_db = directory(os.path.join(my_basedir, "db/unite/kraken/")),
+
+        silva_kraken_tax = os.path.join(my_basedir, "db/silva/kraken/taxID_to_tax.txt"),
+        unite_kraken_tax = os.path.join(my_basedir, "db/unite/kraken/taxID_to_tax.txt")
     log:
         "logs/run_download_db.log"
     params:
