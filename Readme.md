@@ -24,7 +24,13 @@ Below you can find the full workflow:
 
 ## Quick start
 
-To run NanoITs, install conda and snakemake and clone the directory from github via:
+To run NanoITs, install conda and use it to installed snakemake  as follows:
+
+```{bash}
+mamba create --name snakemake -c conda-forge -c bioconda snakemake=7.32.4 python=3.11.6
+```
+
+Afterwards, you can clone the directory from github via:
 
 ```{python}
 git clone https://github.com/ndombrowski/NanoITS.git
@@ -36,13 +42,20 @@ Adjust `config/config.yaml` to configure the location of your mapping file as we
 
 NanoITs can then be run with:
 
-
 ```{python}
+#perform a dry-run to ensure everything is working correctly
 snakemake --use-conda --cores <nr_cores> \
   -s <path_to_NanoITS_install>/workflow/Snakefile \
   --configfile config/config.yaml \
   --conda-prefix <path_to_NanoITS_install>/workflow/.snakemake/conda  \
-  --rerun-incomplete --nolock -np 
+  -np 
+
+#run NanoITS
+snakemake --use-conda --cores <nr_cores> \
+  -s <path_to_NanoITS_install>/workflow/Snakefile \
+  --configfile config/config.yaml \
+  --conda-prefix <path_to_NanoITS_install>/workflow/.snakemake/conda  \
+  --rerun-incomplete --nolock
 ```
 
 For a more detailed explanation, check out [the manual](https://ndombrowski.github.io/NanoITS/).

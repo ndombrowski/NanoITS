@@ -10,6 +10,8 @@ rule run_nanostat:
         "../envs/nanopore.yaml"
     benchmark:
         "results/{project}/benchmarks/{project}_NanoStatUnfiltered_{sample}.txt"
+    log:
+        "logs/{project}_nanostat_{sample}.log"
     params:
         threads = config["threads"]
     shell: """
@@ -17,21 +19,23 @@ rule run_nanostat:
     NanoStat --fastq {input} --name {output} -t {params.threads}
     """
 
-rule summarize_nanostat:
-    input:
-        expand("results/{project}/quality_checks/1_unfiltered/nanostat/{sample}_unfiltered_stats.txt", sample=samples_table.index, project=config["project"])
-    output:
-        report("results/{project}/quality_checks/1_unfiltered/nanostat/merged_stats.txt",
-        caption = "../report/fig_nanostat.rst",
-        category = "Quality_unfiltered_reads"        
-        )
-    conda:
-        "../envs/nanopore.yaml"
-    shell: """
-    #run tool
-    python {my_basedir}/scripts/merge_nanostats.py \
-        -i {input} -o results/{project}/quality_checks/1_unfiltered/nanostat/merged_stats.pdf
-    """
+# rule summarize_nanostat:
+#     input:
+#         expand("results/{project}/quality_checks/1_unfiltered/nanostat/{sample}_unfiltered_stats.txt", sample=samples_table.index, project=config["project"])
+#     output:
+#         report("results/{project}/quality_checks/1_unfiltered/nanostat/merged_stats.txt",
+#         caption = "../report/fig_nanostat.rst",
+#         category = "Quality_unfiltered_reads"        
+#         )
+#     conda:
+#         "../envs/nanopore.yaml"
+#     log:
+#         "logs/{project}_nanostat_parsing.log"
+#     shell: """
+#     #run tool
+#     python {my_basedir}/scripts/merge_nanostats.py \
+#         -i {input} -o results/{project}/quality_checks/1_unfiltered/nanostat/merged_stats.pdf
+#     """
 
 
 rule run_pistis:
@@ -49,6 +53,8 @@ rule run_pistis:
         mem_mb = lambda wildcards, attempt: attempt * config["pistis"]["memory"]    
     conda:
         "../envs/nanopore.yaml"
+    log:
+        "logs/{project}_pistis_{sample}.log"
     benchmark:
         "results/{project}/benchmarks/{project}_PistisUnfiltered_{sample}.txt"
     shell: """

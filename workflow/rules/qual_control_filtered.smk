@@ -15,21 +15,21 @@ rule run_nanostat_filtered:
     """
 
 
-rule summarize_nanostat_filtered:
-    input:
-        expand("results/{project}/quality_checks/2_filtered/nanostat/{sample}_unfiltered_stats.txt", sample=samples_table.index, project=config["project"])
-    output:
-        report("results/{project}/quality_checks/2_filtered/nanostat/merged_stats.txt",
-        caption = "../report/fig_nanostat.rst",
-        category = "Quality_filtered_reads"        
-        )
-    conda:
-        "../envs/nanopore.yaml"
-    shell: """
-    #run tool
-    python {my_basedir}/scripts/merge_nanostats.py \
-        -i {input} -o results/{project}/quality_checks/2_filtered/nanostat/merged_stats.pdf
-    """
+# rule summarize_nanostat_filtered:
+#     input:
+#         expand("results/{project}/quality_checks/2_filtered/nanostat/{sample}_unfiltered_stats.txt", sample=samples_table.index, project=config["project"])
+#     output:
+#         report("results/{project}/quality_checks/2_filtered/nanostat/merged_stats.txt",
+#         caption = "../report/fig_nanostat.rst",
+#         category = "Quality_filtered_reads"        
+#         )
+#     conda:
+#         "../envs/nanopore.yaml"
+#     shell: """
+#     #run tool
+#     python {my_basedir}/scripts/merge_nanostats.py \
+#         -i {input} -o results/{project}/quality_checks/2_filtered/nanostat/merged_stats.pdf
+#     """
 
 
 rule run_pistis_filtered:
