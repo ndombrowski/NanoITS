@@ -19,7 +19,7 @@ echo "$SLURM_JOB_NAME started at `date` on node $SLURM_NODEID using $SLURM_CPUS_
 source ~/.bashrc
 
 ## Make sure to use the snakemake env installed in the amplicomics share
-conda activate conda activate snakemake_f_NanoITs
+conda activate snakemake_f_NanoITS
 
 srun mkdir -p /scratch/$USER/tmp/
 export TMPDIR=/scratch/$USER/tmp/
