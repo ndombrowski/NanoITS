@@ -34,12 +34,14 @@ rule summarize_itsx_length:
         caption="../report/fig_itsx.rst",
         category="ITSx_statistics"
         )
+    log:
+        "logs/{project}_summarize_itsx_length.log"
     conda:
         "../envs/nanopore.yaml"
     shell: """
     python3  {my_basedir}/scripts/calc_itsx_seq_length.py \
         --its_results results/{project}/itsx  \
-        -o results/run_v1/itsx/avg_seq_length.txt
+        -o results/{project}/itsx/avg_seq_length.txt 2>&1
     """
 
 
@@ -52,12 +54,14 @@ rule summarize_itsx_nr:
         caption="../report/fig_itsx.rst",
         category="ITSx_statistics"
         )
+    log:
+        "logs/{project}_summarize_itsx_number.log"
     conda:
         "../envs/nanopore.yaml"
     shell: """
     python3  {my_basedir}/scripts/itsx_get_counts.py \
         --its_results results/{project}/itsx  \
-        -o {output}
+        -o results/{project}/itsx/avg_seq_nr.txt 2>&1
     """
 
 
@@ -74,7 +78,7 @@ rule merge_benchmarks:
         "../envs/nanopore.yaml"
     shell: """
     python {my_basedir}/scripts/merge_benchmarks.py \
-        -i "results/run_v1/benchmarks/*txt" \
-        -o results/run_v1/benchmarks/merged_output.txt \
+        -i "results/{project}/benchmarks/*txt" \
+        -o results/{project}/benchmarks/merged_output.txt \
         --barplots {output}
     """
