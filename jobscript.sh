@@ -27,9 +27,9 @@ export TMPDIR=/scratch/$USER/tmp/
 
 ## Run NanoITS
 cmd="srun --cores $SLURM_CPUS_ON_NODE snakemake \
-    -s /zfs/omics/projects/amplicomics/bin/NanoITS_0.2/workflow/Snakefile \
+    -s /zfs/omics/projects/amplicomics/bin/NanoITS_0.3/workflow/Snakefile \
     --configfile config.yaml --use-conda \
-    --conda-prefix /zfs/omics/projects/amplicomics/bin/NanoITS_0.2/workflow/.snakemake/conda \
+    --conda-prefix /zfs/omics/projects/amplicomics/bin/NanoITS_0.3/workflow/.snakemake/conda \
     --cores $SLURM_CPUS_ON_NODE --nolock --rerun-incomplete"
 
 echo "Running: $cmd"
