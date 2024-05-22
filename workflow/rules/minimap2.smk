@@ -23,20 +23,22 @@ rule run_minimap:
         reference_fasta="{input.unite_general_fasta}"
     else
         echo "Unsupported marker: {wildcards.marker}"
+        exit
     fi
 
-    echo "Running minimap2 with:"  2> {log}
-    echo "minimap2 -cx map-ont -t {params.threads} -N 10 -K 25M $reference_fasta" 2>> {log}
+    echo "Running minimap2 with:"  >> {log}
+    echo "minimap2 -cx map-ont -t {params.threads} -N 10 -K 25M $reference_fasta" >> {log}
   
-    echo "Starting minimap --version"
+    echo "Starting minimap2"  >> {log}
     minimap_version=$(minimap2 --version)
-    echo "minimap version is $minimap_version" 2>> {log}
+    echo "minimap version is $minimap_version" >> {log}
 
     minimap2 -cx map-ont -t {params.threads} \
             -N 10 -K 25M \
             $reference_fasta \
             {input.query} \
-            -o {output} 2>> {log}
+            -o {output} &>> {log}
+
     """
 
 
@@ -46,6 +48,8 @@ rule parse_minimap:
         "results/{project}/classification/minimap2/{sample}/{sample}_{marker}_minimap2.paf"
     output:
         "results/{project}/classification/minimap2/{sample}/{sample}_{marker}_minimap2.out"
+    log:
+        "logs/{project}_parse_minimap_{marker}_{sample}.log"
     params:
         coverage_threshold=config["minimap2"]["coverage_threshold"]
     conda:
