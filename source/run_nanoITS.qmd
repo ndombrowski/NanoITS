@@ -7,12 +7,13 @@ execute:
 engine: knitr
 ---
 
+NanoITS will take de-multiplexed and compressed fastq files as input and generate OTU tables and some summary statistics as output.
 
-NanoITS will take de-multiplexed and compressed fastq files as input and generate OTU tables and some several summary statistics as output. Please, provide a single fastq.gz file per sample.
+As input, NanoITS takes a single fastq.gz file per sample.
 
 ## Modify the configuration file
 
-To run NanoITS you need to provide some information in the configuartion file. In the NanoITs configuration file, also called config.yaml, you can provide the sample name, sample path and modify some parameters for the different software used. 
+To run NanoITS you need to provide some information in the configuration file. In the NanoITs configuration file, also called config.yaml, you can provide the sample name, sample path and modify some parameters for the different software used.
 
 To change the default settings and tell Snakemake where your data is located copy the `config/config.yaml` file found in the NanoITs folder to the folder in which you want to analyse your data, i.e. like this:
 
@@ -30,20 +31,22 @@ You can provide the project name in `project: "run_v1"`. Your results will be ge
 
 **The mapping file**
 
-Here, you need to provide the path to a comma-separated mapping file that describes the samples you want to analyse, i.e. `samples_file: "input/mapping.csv"`. This file needs to contain the following columns:
+Here, you need to provide the path to a comma-separated mapping file that describes the samples you want to analyse, i.e. `samples_file: "input/mapping.csv"`. The mapping file itself needs to contain the following columns:
 
-1. `sample`: The names of your sample. This id will be used to label all files created in subsequent steps. Your sample names should be unique and only contain letters, numbers and `-`. Do not use other symbols, such as spaces, dots or underscores in your sample names.
-2. `barcode`: The barcode ID. Can be empty as it is not actively used in the workflow as of now
-3. `path`: Path to the fastq.gz files. You can provide the relative path (i.e. relative to the working directory you start the snakemake workflow in) or absolute path (i.e. the location of a file or directory from the root directory(`/`)). The workflow accepts one file per barcode, so if you have more than one file merge these files first, for example using the `cat` command.
+1.  `sample`: The names of your sample. This id will be used to label all files created in subsequent steps. Your sample names should be unique and only contain letters, numbers and `-`. Do not use other symbols, such as spaces, dots or underscores in your sample names.
+2.  `barcode`: The barcode ID. Can be empty as it is not actively used in the workflow as of now
+3.  `path`: Path to the fastq.gz files. You can provide the relative path (i.e. relative to the working directory you start the snakemake workflow in) or absolute path (i.e. the location of a file or directory from the root directory(`/`)). The workflow accepts one file per barcode, so if you have more than one file merge these files first, for example using the `cat` command.
 
 Example mapping file:
 
-```
+```         
 sample,barcode,path
 bc01,barcode01,/path/barcode01.fastq.gz
 bc02,barcode02,/path/barcode02.fastq.gz
 ...
 ```
+
+If you use the example, ensure that the mapping.csv file resides in a folder called input or change the config.yaml accordingly.
 
 **The classifiers to use**
 
@@ -51,15 +54,15 @@ You can choose what classifiers you want to use in `classifiers: ["minimap2", "k
 
 **The markers to investigate**
 
-You can select what markers you want to analyse in `markers: ["SSU", "ITS1"]`. The workflow was developed for primers targetting both the SSU and ITS1 but the workflow will also run for either option selected and we plan to in the future extend the workflow to also accept the LSU rRNA gene.
+You can select what markers you want to analyse in `markers: ["SSU", "ITS1"]`. The workflow was developed for primers targeting both the SSU and ITS1 but the workflow will also run for either option selected and we plan to in the future extend the workflow to also accept the LSU rRNA gene.
 
 **Other parameters**
 
 Finally, you can change tool specific parameters: If desired, there are several parameters that can be changed by the user, such as the numbers of threads to use, the settings for the read filtering or the classification and so on. The configuration file provides more information on each parameter.
 
-Since several steps of this workflow are quite resource intensive, we recommend running this worklow on an HPC and set the numbers of threads used by each process accordingly.
+The most important parameters to check out are the settings for the **filtering** of reads and the minimum length cutoff (**min_its_length**) for the SSU and ITS1 sequences.
 
-
+Since several steps of this workflow are quite resource intensive, we recommend running this workflow on an HPC and set the numbers of threads accordingly.
 
 ## Run NanoITS
 
@@ -67,9 +70,9 @@ Since several steps of this workflow are quite resource intensive, we recommend 
 
 To test whether the workflow is defined properly do a dry-run first. To do this, change part of the snakemake command as follows:
 
-1. Provide the path to where you installed NanoITS afer `--s`
-2. Provide the path to the edited config file after `--configfile`
-3. Provide the path to where you want snakemake to install all program dependencies after `--conda-prefix`. We recommend to install these into the folder in which you downloaded NanoITS but you can change this if desired
+1.  Provide the path to where you installed NanoITS after `--s`
+2.  Provide the path to the edited config file after `--configfile`
+3.  Provide the path to where you want snakemake to install all program dependencies after `--conda-prefix`. We recommend to install these into the folder in which you downloaded NanoITS but you can change this if desired
 
 ```{bash}
 #activate conda environment with your snakemake installation, i.e. 
@@ -83,7 +86,6 @@ snakemake --use-conda --cores 1 \
   --rerun-incomplete --nolock -np 
 ```
 
-
 ### Run NanoITS interactively
 
 If the dry-run was successful you can run snakemake interactively with the following command. Adjust the cores according to your system.
@@ -96,19 +98,9 @@ snakemake --use-conda --cores 1 \
   --rerun-incomplete --nolock
 ```
 
-
 ### Run NanoITS on Crunchomics (Uva-specific option)
 
-Or via a slurm HPC, such as UvA´s crunchomics server by doing the following edits in jobscript.sh:
-
-1. Exchange the line that utilizes snakemake with the line of code that you used for the dry-run to ensure that all paths are set correctly.
-2. Adjust the number of CPUs as needed
-
-```{bash}
-sbatch jobscript.sh
-```
-
-
+If you are a student or staff at the University of Amsterdam and part of the IBED department, you can also run NanoITS via the Crunchomics HPC. Detailed instructions how to do thos can be found [here](https://scienceparkstudygroup.github.io/software_information/source/nanopore/nanoITS.html#nanoits-on-crunchomics).
 
 ## Generate a report
 
@@ -122,18 +114,17 @@ snakemake --report report.html \
 
 At the moment the report contains:
 
-- A shematic of the steps executed
-- Information about the reads before and after quality filtering (one file for each sample)
-- Information about the number of SSU and ITS1 sequences extracted before and after quality filtering
-- The results from the different classifiers represented as barplots (total counts and relative abundance) for different taxonomic ranks
-- Statistics of the snakemake run
+-   A schematic of the steps executed
+-   Information about the reads before and after quality filtering (one file for each sample)
+-   Information about the number of SSU and ITS1 sequences extracted before and after quality filtering
+-   The results from the different classifiers represented as barplots (total counts and relative abundance) for different taxonomic ranks
+-   Statistics of the snakemake run
 
 Additionally, you can find some OTU tables in these locations:
 
-- `results/<project_name>/tables/{marker}_otu_table.txt`: An OTU table based on the taxonomy assignment and including the counts for each sample and classifier. The table is generated once for each marker generated.
-- `results/<project_name>/tables/{marker}_otu_table_filtered..txt`: A filtered OTU table based on the taxonomy assignment and including the counts for each sample and classifier. The table is generated once for each marker generated. The filtering discards samples with =<20 reads and singletons and the barplots in the reports where generated from the filtered OTU table.
-- `results/<project_name>/classification/{classifier}/{marker}.merged.outmat.tsv`: An OTU table based on the taxonomy assignment and including the counts for each sample. One separate table is generated for each marker investigated and classifier used. 
-
+-   `results/<project_name>/tables/{marker}_otu_table.txt`: An OTU table based on the taxonomy assignment and including the counts for each sample and classifier. The table is generated once for each marker generated.
+-   `results/<project_name>/tables/{marker}_otu_table_filtered..txt`: A filtered OTU table based on the taxonomy assignment and including the counts for each sample and classifier. The table is generated once for each marker generated. The filtering discards samples with =\<20 reads and singletons and the barplots in the reports where generated from the filtered OTU table.
+-   `results/<project_name>/classification/{classifier}/{marker}.merged.outmat.tsv`: An OTU table based on the taxonomy assignment and including the counts for each sample. One separate table is generated for each marker investigated and classifier used.
 
 ### Generate a report with the old report format
 

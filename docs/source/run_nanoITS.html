@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -83,7 +83,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -92,6 +98,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -107,12 +114,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../source/run_nanoITS.html">Run NanoITS</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../source/run_nanoITS.html">Run NanoITS</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -122,7 +129,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">NanoITS</a> 
@@ -171,7 +178,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -210,12 +217,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
 
-<p>NanoITS will take de-multiplexed and compressed fastq files as input and generate OTU tables and some several summary statistics as output. Please, provide a single fastq.gz file per sample.</p>
+
+<p>NanoITS will take de-multiplexed and compressed fastq files as input and generate OTU tables and some summary statistics as output.</p>
+<p>As input, NanoITS takes a single fastq.gz file per sample.</p>
 <section id="modify-the-configuration-file" class="level2">
 <h2 class="anchored" data-anchor-id="modify-the-configuration-file">Modify the configuration file</h2>
-<p>To run NanoITS you need to provide some information in the configuartion file. In the NanoITs configuration file, also called config.yaml, you can provide the sample name, sample path and modify some parameters for the different software used.</p>
+<p>To run NanoITS you need to provide some information in the configuration file. In the NanoITs configuration file, also called config.yaml, you can provide the sample name, sample path and modify some parameters for the different software used.</p>
 <p>To change the default settings and tell Snakemake where your data is located copy the <code>config/config.yaml</code> file found in the NanoITs folder to the folder in which you want to analyse your data, i.e.&nbsp;like this:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="op">&lt;</span>path_to NanoITS_folder<span class="op">&gt;</span>/config/config.yaml .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -225,7 +235,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>The project name</strong></p>
 <p>You can provide the project name in <code>project: "run_v1"</code>. Your results will be generated in the folder you start the snakemake workflow in and the results will be generated in <code>results/&lt;project_name&gt;</code> (<code>results/run_v1</code> if you use the default settings). Your project name can contain letters, numbers, <code>_</code> and <code>-</code>. Do not use other symbols, such as spaces or dots.</p>
 <p><strong>The mapping file</strong></p>
-<p>Here, you need to provide the path to a comma-separated mapping file that describes the samples you want to analyse, i.e.&nbsp;<code>samples_file: "input/mapping.csv"</code>. This file needs to contain the following columns:</p>
+<p>Here, you need to provide the path to a comma-separated mapping file that describes the samples you want to analyse, i.e.&nbsp;<code>samples_file: "input/mapping.csv"</code>. The mapping file itself needs to contain the following columns:</p>
 <ol type="1">
 <li><code>sample</code>: The names of your sample. This id will be used to label all files created in subsequent steps. Your sample names should be unique and only contain letters, numbers and <code>-</code>. Do not use other symbols, such as spaces, dots or underscores in your sample names.</li>
 <li><code>barcode</code>: The barcode ID. Can be empty as it is not actively used in the workflow as of now</li>
@@ -236,13 +246,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 bc01,barcode01,/path/barcode01.fastq.gz
 bc02,barcode02,/path/barcode02.fastq.gz
 ...</code></pre>
+<p>If you use the example, ensure that the mapping.csv file resides in a folder called input or change the config.yaml accordingly.</p>
 <p><strong>The classifiers to use</strong></p>
 <p>You can choose what classifiers you want to use in <code>classifiers: ["minimap2", "kraken2"]</code>. Currently, two classifiers are implemented: (a) the alignment-based classifier minimap2 and (b) the kmer-based classifier kraken2. You can use both or either of the two classifiers.</p>
 <p><strong>The markers to investigate</strong></p>
-<p>You can select what markers you want to analyse in <code>markers: ["SSU", "ITS1"]</code>. The workflow was developed for primers targetting both the SSU and ITS1 but the workflow will also run for either option selected and we plan to in the future extend the workflow to also accept the LSU rRNA gene.</p>
+<p>You can select what markers you want to analyse in <code>markers: ["SSU", "ITS1"]</code>. The workflow was developed for primers targeting both the SSU and ITS1 but the workflow will also run for either option selected and we plan to in the future extend the workflow to also accept the LSU rRNA gene.</p>
 <p><strong>Other parameters</strong></p>
 <p>Finally, you can change tool specific parameters: If desired, there are several parameters that can be changed by the user, such as the numbers of threads to use, the settings for the read filtering or the classification and so on. The configuration file provides more information on each parameter.</p>
-<p>Since several steps of this workflow are quite resource intensive, we recommend running this worklow on an HPC and set the numbers of threads used by each process accordingly.</p>
+<p>The most important parameters to check out are the settings for the <strong>filtering</strong> of reads and the minimum length cutoff (<strong>min_its_length</strong>) for the SSU and ITS1 sequences.</p>
+<p>Since several steps of this workflow are quite resource intensive, we recommend running this workflow on an HPC and set the numbers of threads accordingly.</p>
 </section>
 <section id="run-nanoits" class="level2">
 <h2 class="anchored" data-anchor-id="run-nanoits">Run NanoITS</h2>
@@ -250,7 +262,7 @@ bc02,barcode02,/path/barcode02.fastq.gz
 <h3 class="anchored" data-anchor-id="dry-run">Dry-run</h3>
 <p>To test whether the workflow is defined properly do a dry-run first. To do this, change part of the snakemake command as follows:</p>
 <ol type="1">
-<li>Provide the path to where you installed NanoITS afer <code>--s</code></li>
+<li>Provide the path to where you installed NanoITS after <code>--s</code></li>
 <li>Provide the path to the edited config file after <code>--configfile</code></li>
 <li>Provide the path to where you want snakemake to install all program dependencies after <code>--conda-prefix</code>. We recommend to install these into the folder in which you downloaded NanoITS but you can change this if desired</li>
 </ol>
@@ -279,27 +291,20 @@ bc02,barcode02,/path/barcode02.fastq.gz
 </section>
 <section id="run-nanoits-on-crunchomics-uva-specific-option" class="level3">
 <h3 class="anchored" data-anchor-id="run-nanoits-on-crunchomics-uva-specific-option">Run NanoITS on Crunchomics (Uva-specific option)</h3>
-<p>Or via a slurm HPC, such as UvA´s crunchomics server by doing the following edits in jobscript.sh:</p>
-<ol type="1">
-<li>Exchange the line that utilizes snakemake with the line of code that you used for the dry-run to ensure that all paths are set correctly.</li>
-<li>Adjust the number of CPUs as needed</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> jobscript.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p>If you are a student or staff at the University of Amsterdam and part of the IBED department, you can also run NanoITS via the Crunchomics HPC. Detailed instructions how to do thos can be found <a href="https://scienceparkstudygroup.github.io/software_information/source/nanopore/nanoITS.html#nanoits-on-crunchomics">here</a>.</p>
 </section>
 </section>
 <section id="generate-a-report" class="level2">
 <h2 class="anchored" data-anchor-id="generate-a-report">Generate a report</h2>
 <p>After a successful run, you can create a report with some of the key output files as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--report</span> report.html <span class="dt">\</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--configfile</span> config/config.yaml <span class="dt">\</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-s</span> <span class="op">&lt;</span>path_to_NanoITS_install<span class="op">&gt;</span>/workflow/Snakefile</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--report</span> report.html <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--configfile</span> config/config.yaml <span class="dt">\</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-s</span> <span class="op">&lt;</span>path_to_NanoITS_install<span class="op">&gt;</span>/workflow/Snakefile</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>At the moment the report contains:</p>
 <ul>
-<li>A shematic of the steps executed</li>
+<li>A schematic of the steps executed</li>
 <li>Information about the reads before and after quality filtering (one file for each sample)</li>
 <li>Information about the number of SSU and ITS1 sequences extracted before and after quality filtering</li>
 <li>The results from the different classifiers represented as barplots (total counts and relative abundance) for different taxonomic ranks</li>
@@ -361,6 +366,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -429,13 +461,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -514,10 +548,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -527,8 +560,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -541,6 +583,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -584,6 +745,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -609,6 +771,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -670,12 +858,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../source/prerequisites.html" class="pagination-link">
+      <a href="../source/prerequisites.html" class="pagination-link  aria-label=" getting="" started"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Getting started</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../source/output.html" class="pagination-link">
+      <a href="../source/output.html" class="pagination-link" aria-label="Generated files">
         <span class="nav-page-text">Generated files</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -683,7 +871,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">Copyright 2023, Nina Dombrowski</div>   
+    <div class="nav-footer-left">
+<p>Copyright 2023, Nina Dombrowski</p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
@@ -692,6 +882,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
+
 
 
 

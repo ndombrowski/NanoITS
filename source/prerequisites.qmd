@@ -18,11 +18,16 @@ All other software required by NanoITs will be installed by snakemake for you in
 
 ### Install conda
 
- Information about installing  mamba [here](https://mamba.readthedocs.io/en/latest/mamba-installation.html) and for conda can be found [here](https://docs.conda.io/projects/conda/en/latest/user-guide/install/).
+ Information about installing  mamba can be found [here](https://mamba.readthedocs.io/en/latest/mamba-installation.html) and for conda can be found [here](https://docs.conda.io/projects/conda/en/latest/user-guide/install/).
 
 ### Install snakemake
 
-To install snakemake, check out the installation instructions found [here](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html). The workflow was so far tested with snakemake version 7.32.4.
+After having installed conda/mamba you can install snakemake as follows. Notice, the workflow was so far tested with snakemake version 7.32.4.
+
+```{bash}
+mamba create --name snakemake -c conda-forge -c bioconda snakemake=7.32.4 python=3.11.6
+```
+
 
 ### Install NanoITS
 
