@@ -3,8 +3,8 @@ rule run_itsx:
         "results/{project}/reads/2_qual_filtered_reads/3_fasta/{sample}.fasta"
     output:
         "results/{project}/itsx/{sample}/{sample}.full.fasta"
-    params:
-        threads=config["itsx"]["threads"]
+    threads:
+        config["itsx"]["threads"]
     log:
         "logs/{project}_itsx_{sample}.log"
     conda:
@@ -19,13 +19,13 @@ rule run_itsx:
     echo "ITSx -i {input} \
             --save_regions all \
             -o results/{project}/itsx/{wildcards.sample}/{wildcards.sample} \
-            --cpu {params.threads} --preserve F --table T \
+            --cpu {threads} --preserve F --table T \
             --temp results/{project}/itsx/{wildcards.sample}/temp" >> {log}
 
     ITSx -i {input} \
             --save_regions all \
             -o results/{project}/itsx/{wildcards.sample}/{wildcards.sample} \
-            --cpu {params.threads} --preserve F --table T \
+            --cpu {threads} --preserve F --table T \
             --temp results/{project}/itsx/{wildcards.sample}/temp >> {log} 2>&1
 
     #cleanup
@@ -79,7 +79,7 @@ rule parse_itsx:
 #     shell: """
 #     #count nr of hits per marker
 #     python {my_basedir}/scripts/itsx_get_counts.py \
-#             --its_results/{project} {input} -l {params.min_itsx_length} \
+#             --its_results {input} -l {params.min_itsx_length} \
 #             -o {output[0]}
 
 #     """

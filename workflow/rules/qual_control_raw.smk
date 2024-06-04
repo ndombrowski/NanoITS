@@ -12,11 +12,11 @@ rule run_nanostat:
         "results/{project}/benchmarks/{project}_NanoStatUnfiltered_{sample}.txt"
     log:
         "logs/{project}_nanostat_{sample}.log"
-    params:
-        threads = config["threads"]
+    threads:
+        config["threads"]
     shell: """
     #run tool
-    NanoStat --fastq {input} --name {output} -t {params.threads}
+    NanoStat --fastq {input} --name {output} -t {threads}
     """
 
 # rule summarize_nanostat:

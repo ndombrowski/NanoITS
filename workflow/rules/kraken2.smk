@@ -6,8 +6,9 @@ rule run_kraken:
     output:
         out = "results/{project}/classification/kraken2/{sample}/{sample}_{marker}_kraken2.out",
         report = "results/{project}/classification/kraken2/{sample}/{sample}_{marker}_kraken2.report"
+    threads:
+        config["threads"]
     params:
-        threads = config["threads"],
         confidence_score = config["kraken2"]["confidence_score"],
         min_hit_nr = config["kraken2"]["min_hit_nr"]
     log:
@@ -27,7 +28,7 @@ rule run_kraken:
     fi
 
     echo "Running kraken2 with: "  > {log}
-    echo "kraken2 -db $kraken_db --confidence {params.confidence_score} --minimum-hit-groups {params.min_hit_nr} --threads {params.threads}"  >> {log}
+    echo "kraken2 -db $kraken_db --confidence {params.confidence_score} --minimum-hit-groups {params.min_hit_nr} --threads {threads}"  >> {log}
     
     echo "Starting kraken2 --version"
     kraken2_version=$(kraken2 --version)
@@ -38,7 +39,7 @@ rule run_kraken:
             --minimum-hit-groups {params.min_hit_nr} \
             --output {output.out} \
             --report {output.report} \
-            --threads {params.threads}  \
+            --threads {threads}  \
             {input.query} 2>> {log}
 
     """

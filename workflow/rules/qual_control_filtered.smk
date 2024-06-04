@@ -7,11 +7,11 @@ rule run_nanostat_filtered:
         "../envs/nanopore.yaml"
     benchmark:
         "results/{project}/benchmarks/{project}_NanoStatFiltered_{sample}.txt"
-    params:
-        threads = config["threads"]
+    threads:
+        config["threads"]
     shell: """
     #run tool
-    NanoStat --fastq {input} --name {output} -t {params.threads}
+    NanoStat --fastq {input} --name {output} -t {threads}
     """
 
 

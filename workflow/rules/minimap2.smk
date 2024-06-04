@@ -5,8 +5,8 @@ rule run_minimap:
         unite_general_fasta = os.path.join(my_basedir, "db/unite/general/unite-ref-seqs.fna")
     output:
         "results/{project}/classification/minimap2/{sample}/{sample}_{marker}_minimap2.paf"
-    params:
-        threads=config["minimap2"]["threads"]
+    threads:
+        config["minimap2"]["threads"]
     resources:
         mem_mb = lambda wildcards, attempt: attempt * config["minimap2"]["memory"]
     log:
@@ -27,13 +27,13 @@ rule run_minimap:
     fi
 
     echo "Running minimap2 with:"  >> {log}
-    echo "minimap2 -cx map-ont -t {params.threads} -N 10 -K 25M $reference_fasta" >> {log}
+    echo "minimap2 -cx map-ont -t {threads} -N 10 -K 25M $reference_fasta" >> {log}
   
     echo "Starting minimap2"  >> {log}
     minimap_version=$(minimap2 --version)
     echo "minimap version is $minimap_version" >> {log}
 
-    minimap2 -cx map-ont -t {params.threads} \
+    minimap2 -cx map-ont -t {threads} \
             -N 10 -K 25M \
             $reference_fasta \
             {input.query} \
