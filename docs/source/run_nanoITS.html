@@ -250,10 +250,10 @@ bc02,barcode02,/path/barcode02.fastq.gz
 <p><strong>The classifiers to use</strong></p>
 <p>You can choose what classifiers you want to use in <code>classifiers: ["minimap2", "kraken2"]</code>. Currently, two classifiers are implemented: (a) the alignment-based classifier minimap2 and (b) the kmer-based classifier kraken2. You can use both or either of the two classifiers.</p>
 <p><strong>The markers to investigate</strong></p>
-<p>You can select what markers you want to analyse in <code>markers: ["SSU", "ITS1"]</code>. The workflow was developed for primers targeting both the SSU and ITS1 but the workflow will also run for either option selected and we plan to in the future extend the workflow to also accept the LSU rRNA gene.</p>
+<p>You can select what markers you want to analyse in <code>markers: ["SSU", "ITS1", "ITS2"]</code>. The workflow was developed for primers targeting both the SSU and ITS1/ITS2 but the workflow will also run for either option selected and we plan to in the future extend the workflow to also accept the LSU rRNA gene.</p>
 <p><strong>Other parameters</strong></p>
 <p>Finally, you can change tool specific parameters: If desired, there are several parameters that can be changed by the user, such as the numbers of threads to use, the settings for the read filtering or the classification and so on. The configuration file provides more information on each parameter.</p>
-<p>The most important parameters to check out are the settings for the <strong>filtering</strong> of reads and the minimum length cutoff (<strong>min_its_length</strong>) for the SSU and ITS1 sequences.</p>
+<p>The most important parameters to check out are the settings for the <strong>filtering</strong> of reads and the minimum length cutoff (<strong>min_its_length</strong>) for the SSU and ITS1/ITS2 sequences.</p>
 <p>Since several steps of this workflow are quite resource intensive, we recommend running this workflow on an HPC and set the numbers of threads accordingly.</p>
 </section>
 <section id="run-nanoits" class="level2">

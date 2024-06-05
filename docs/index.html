@@ -210,15 +210,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>NanoITS is a classifier for long-read Oxford Nanopore data of the eukaryotic 18S/SSU-ITS1 operon.</p>
+<p>NanoITS is a classifier for long-read Oxford Nanopore data of the eukaryotic 18S/SSU-ITS1-ITS2 operon.</p>
 <p>When giving the tool some nanopore long-read data it will:</p>
 <ul>
 <li>Provide a quality report of the raw reads</li>
 <li>Check the reads for adaptors and barcodes and if present trim the reads using porechop</li>
 <li>Remove low-quality and short reads with chopper</li>
 <li>Provide a quality report for the cleaned reads</li>
-<li>Identify and separate both the ITS1 and 18S rRNA gene using ITSx</li>
-<li>Classify the SSU and/or ITS1 gene using kraken2 and/or minimap2 and the Silva and Uniprot database, respectively</li>
+<li>Identify and separate both the ITS1/ITS2 and 18S rRNA gene using ITSx</li>
+<li>Classify the SSU and/or ITS1/ITS2 gene using kraken2 and/or minimap2 and the Silva and Uniprot database, respectively</li>
 <li>Generate taxonomic barplots and OTU tables</li>
 </ul>
 <p>Below you can find the full workflow:</p>

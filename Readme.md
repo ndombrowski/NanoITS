@@ -9,8 +9,8 @@ When giving the tool some nanopore long-read data it will:
 - Check the reads for adaptors and barcodes and if present trim the reads using porechop
 - Remove low-quality and short reads with chopper
 - Provide a quality report for the cleaned reads
-- Identify and separate both the ITS1 and 18S rRNA gene using ITSx
-- Classify the SSU and/or ITS1 gene using kraken2 and/or minimap2 and the Silva and Uniprot database, respectively
+- Identify and separate the ITS1, ITS2 and 18S rRNA gene using ITSx
+- Classify the SSU and/or ITS1/ITS2 gene using kraken2 and/or minimap2 and the Silva and Uniprot database, respectively
 - Generate taxonomic barplots and OTU tables
 
 We plan to in the future extend this workflow to also include the 28S/LSU.

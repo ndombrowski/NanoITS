@@ -17,5 +17,8 @@
   },
   "source/output.qmd": {
     "output.html": "a5302c45"
+  },
+  "source/dev_notes.qmd": {
+    "dev_notes.html": "50328555"
   }
 }

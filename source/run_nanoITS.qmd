@@ -54,13 +54,13 @@ You can choose what classifiers you want to use in `classifiers: ["minimap2", "k
 
 **The markers to investigate**
 
-You can select what markers you want to analyse in `markers: ["SSU", "ITS1"]`. The workflow was developed for primers targeting both the SSU and ITS1 but the workflow will also run for either option selected and we plan to in the future extend the workflow to also accept the LSU rRNA gene.
+You can select what markers you want to analyse in `markers: ["SSU", "ITS1", "ITS2"]`. The workflow was developed for primers targeting both the SSU and ITS1/ITS2 but the workflow will also run for either option selected and we plan to in the future extend the workflow to also accept the LSU rRNA gene.
 
 **Other parameters**
 
 Finally, you can change tool specific parameters: If desired, there are several parameters that can be changed by the user, such as the numbers of threads to use, the settings for the read filtering or the classification and so on. The configuration file provides more information on each parameter.
 
-The most important parameters to check out are the settings for the **filtering** of reads and the minimum length cutoff (**min_its_length**) for the SSU and ITS1 sequences.
+The most important parameters to check out are the settings for the **filtering** of reads and the minimum length cutoff (**min_its_length**) for the SSU and ITS1/ITS2 sequences.
 
 Since several steps of this workflow are quite resource intensive, we recommend running this workflow on an HPC and set the numbers of threads accordingly.
 
