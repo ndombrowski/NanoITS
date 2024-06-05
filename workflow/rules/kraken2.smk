@@ -21,7 +21,7 @@ rule run_kraken:
     
     if [ "{wildcards.marker}" == "SSU" ]; then
         kraken_db="{input.silva_kraken_db}"
-    elif [ "{wildcards.marker}" == "ITS1" ]; then
+    elif [ "{wildcards.marker}" == "ITS1" ] || [ "{wildcards.marker}" == "ITS2" ]; then
         kraken_db="{input.silva_unite_db}"
     else
         echo "Unsupported marker: {wildcards.marker}"
@@ -60,7 +60,7 @@ rule kraken_to_lca:
     
     if [ "{wildcards.marker}" == "SSU" ]; then
         reference_tax="{input.silva_kraken_tax}"
-    elif [ "{wildcards.marker}" == "ITS1" ]; then
+    elif [ "{wildcards.marker}" == "ITS1" ] || [ "{wildcards.marker}" == "ITS2" ]; then
         reference_tax="{input.unite_kraken_tax}"
     else
         echo "Unsupported marker: {wildcards.marker}"

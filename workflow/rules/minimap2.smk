@@ -19,7 +19,7 @@ rule run_minimap:
 
     if [ "{wildcards.marker}" == "SSU" ]; then
         reference_fasta="{input.silva_general_fasta}"
-    elif [ "{wildcards.marker}" == "ITS1" ]; then
+    elif [ "{wildcards.marker}" == "ITS1" ] || [ "{wildcards.marker}" == "ITS2" ]; then
         reference_fasta="{input.unite_general_fasta}"
     else
         echo "Unsupported marker: {wildcards.marker}"
@@ -78,7 +78,7 @@ rule minimap_to_lca:
     
     if [ "{wildcards.marker}" == "SSU" ]; then
         reference_tax="{input.silva_general_tax}"
-    elif [ "{wildcards.marker}" == "ITS1" ]; then
+    elif [ "{wildcards.marker}" == "ITS1" ] || [ "{wildcards.marker}" == "ITS2" ]; then
         reference_tax="{input.unite_general_tax}"
     else
         echo "Unsupported marker: {wildcards.marker}"

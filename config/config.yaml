@@ -58,7 +58,7 @@ classifiers:         ["minimap2", "kraken2"]
 # 1. SSU: Classify the 18S rRNA gene using the Silva database                  #
 # 2. ITS1: Classify the ITS1 gene using the unite database                     #
 #------------------------------------------------------------------------------#
-markers:             ["SSU", "ITS1"]
+markers:             ["SSU", "ITS1", "ITS2"]
 
 
 ################################################################################
