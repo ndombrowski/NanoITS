@@ -11,10 +11,30 @@ def extract_sample_id(filepath):
     return filepath.split('/')[-1].split('.txt')[0]
 
 
-def process_file(file_path):
-    df = pd.read_csv(file_path, delim_whitespace=True)
-    return df
+#def process_file(file_path):
+#    df = pd.read_csv(file_path, delim_whitespace=True)
+#    return df
 
+def process_file(file_path):
+    # Read the file into a DataFrame
+    df = pd.read_csv(file_path, delim_whitespace=True)
+    # Check and fix problematic rows in the 's' column (values with "day," text)
+    if 's' in df.columns:
+        # Identify rows where 's' contains time data
+        def clean_s_value(s_value):
+            if isinstance(s_value, str) and 'day,' in s_value:
+                # Extract the numeric part of 's'
+                numeric_value = ''.join(filter(str.isdigit, s_value.split('day,')[0]))
+                # Extract the time portion and place it in 'h:m:s'
+                time_value = s_value.split('day,')[1].strip()
+                return pd.to_numeric(numeric_value, errors='coerce'), time_value
+            else:
+                return pd.to_numeric(s_value, errors='coerce'), None
+        # Apply cleaning function to the 's' column
+        df[['s', 'h:m:s']] = df['s'].apply(lambda x: pd.Series(clean_s_value(x)))
+    # Reset the index to ensure it uses RangeIndex
+    df.reset_index(drop=True, inplace=True)
+    return df
 
 def create_plots2(subset_df, output_path=None):
     # Set the style for seaborn
